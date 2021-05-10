@@ -16,7 +16,16 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->char('name', 45);
+            $table->char('name',255);
+            $table->char('description_heading',255)->nullable();
+            $table->text('description')->nulable();
+            $table->char('status',1);
+            $table->bigInteger('picture_id')->unsigned()->nullable();
+            $table->foreign('picture_id')->references('id')->on('files');
+            $table->datetime('due_date')->nulable();
+            $table->bigInteger('teacher_id')->unsigned();
+            $table->foreign('teacher_id')->references('id')->on('teachers');
+
         });
     }
 

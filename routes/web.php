@@ -46,3 +46,7 @@ Route::get('teacherChoice/edit/{id}', 'TeacherChoiceController@edit')->name('tea
 Route::get('file/download/{hash}', 'FileController@download');
 Route::get('file/deleteFile/{hash}', 'FileController@deleteFile');
 Route::get('userProfile/{id}','UserController@profile');
+Route::get('mycourses','CourseController@list')->name('mycourses');
+Route::get('mycourses/create','CourseController@create');
+Route::post('mycourses/create','CourseController@save');
+Route::any('mycourses/edit/{id}','CourseController@edit');

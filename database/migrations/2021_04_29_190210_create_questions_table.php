@@ -19,10 +19,9 @@ class CreateQuestionsTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->dateTime('finished_at');
-            $table->bigInteger('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->bigInteger('teacher_id')->unsigned();
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+           
+            $table->bigInteger('course_id')->unsigned();
+            $table->foreign('course_id')->references('id')->on('courses');
 
         });
     }

@@ -137,7 +137,7 @@
                                 <div class="col-sm-5" >
                                     <label  >Title</label>
                                     <input type="text" name=title
-                                    class="form-control form-control-line" maxlength="100">
+                                    class="form-control form-control-line" maxlength="100" required>
                                     
                                 </div>
                                 

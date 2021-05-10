@@ -20,11 +20,9 @@ class CreateStudentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('courses_id')->unsigned();
             $table->foreign('courses_id')->references('id')->on('courses');
-            $table->bigInteger('picture_id')->unsigned();
+            $table->bigInteger('picture_id')->unsigned()->nullable();
             $table->foreign('picture_id')->references('id')->on('files');
-            $table->bigInteger('picture_id')->unsigned();
-            $table->foreign('picture_id')->references('id')->on('files');
-
+          
         });
     }
 

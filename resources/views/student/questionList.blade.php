@@ -1,4 +1,3 @@
- 
 @extends('layout')
 
 @section('content')
@@ -17,15 +16,13 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                     <li class="breadcrumb-item"><a href={{url("mycourses")}}>Teacher Dashboard</a></li>
+                                     <li class="breadcrumb-item"><a href={{url("myactivities")}}>Student Dashboard</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">{{$course->name}}</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
-                      <div class="col-4">
-                        <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("teacherQuestion/create/{$course->id}")}}'">New Question</button>
-                    </div>
+                   
                    	
                 </div>
             </div>
@@ -94,7 +91,7 @@
                                             <th class="border-top-0">Created</th>
                                              <th class="border-top-0">Due to</th>
                                              <th class="border-top-0"></th>
-                                             <th class="border-top-0"></th>
+                                             <th class="border-top-0">Your work</th>
                                           
                                         </tr>
                                     </thead>
@@ -106,7 +103,7 @@
                                                 <div class="d-flex align-items-center">
                                                    
                                                     <div class="">
-                                                        <h4 class="m-b-0 font-16"><a href={{url("teacherQuestion/show/{$question->id}")}}>{{$question->title}}</a></h4>
+                                                        <h4 class="m-b-0 font-16"><a href={{url("myactivities/questionShow/{$question->id}")}}>{{$question->title}}</a></h4>
                                                     </div>
                                                 </div>
                                             </td>
@@ -114,16 +111,34 @@
                                          
                                              <td>{{$question->created_at->format('m-d-Y')}}</td>
                                              <td>{{date('m-d-Y', strtotime($question->finished_at))}}</td>
-                                             <td align="center">@if (date('U', strtotime($question->finished_at))< date("U"))
-                                             		<span class="label label-rounded label-danger">Closed</span>
-                                                 @else
-                                                    <span class="label label-rounded label-success">Open</span>
-                                             	@endif
-                                             </td>
-                                             <td><div class="m-icon"><a href={{url("teacherQuestion/delete/{$question->id}")}}><i class="m-r-10 mdi mdi-delete"></i></a></div>
-                                                <div class="m-icon"><a href={{url("teacherQuestion/show/{$question->id}")}}><i class="m-r-10 mdi mdi-lead-pencil"></i></a></div></td>
-             
-                                        </tr>
+                                             <td align="center">
+                                           
+                                             	@php 
+                                             		$answer=$question->getStudentAnswer();
+                                             	@endphp
+                                             		@if ($answer!==NULL)
+                                             			@if ($answer->completed_at!==NULL)
+                                             				</td><td><span class="label label-rounded label-success"><i class="m-r-10 mdi mdi-check-all" style="margin-right:5px;"></i><b>COMPLETED<b></span></td>
+                                             			@else
+                                             				@if (date('U', strtotime($question->finished_at))< date("U"))
+                                             					<span class="label label-rounded label-danger">Closed</span></td>
+                                             					<td><span class="label label-rounded label-danger"><i class="mdi mdi-emoticon-dead" style="margin-right:5px;"></i><b>No more time</b></span></td>
+                                                 			@else
+                                                    			<span class="label label-rounded label-success">Open</span></td>
+                                                    			<td><span class="label label-rounded label-warning"><i class="m-r-10 mdi mdi-wrench" style="margin-right:5px;"></i><B>Working on it!</B></span></td>
+                                             				@endif
+                                             				
+                                             			@endif
+                                             		@else
+                                             			@if (date('U', strtotime($question->finished_at))< date("U"))
+                                             					<span class="label label-rounded label-danger">Closed</span></td>
+
+                                                 		@else
+                                                    			<span class="label label-rounded label-success">Open</span></td>
+                                             			@endif
+                                             			<td></td>
+                                             		@endif
+                                        		</tr>
                                      @endforeach
                                     </tbody>
                                 </table>

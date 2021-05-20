@@ -27,5 +27,11 @@ class Course extends Model
         return $this->belongsTo(Teacher::class);
     }
 
+     public function questions(){
+        return $this->hasMany( Question::class);
+    }
 
+      public function students(){
+        return $this->belongsToMany( Student::class);
+    }
 }

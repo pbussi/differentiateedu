@@ -80,8 +80,8 @@ class TeacherChoiceController extends Controller
     {
         $choice=Choice::find($id);
         $question_id=$choice->question_id;
-        //si tiene asignaciones no se puede borrar
-         if($choice->assignments->count()>0)
+        //si tiene respuestas no se puede borrar
+         if($choice->answers->count()>0)
                 return redirect()->route('teacherQuestion.show',$question_id)->with('error','Choice has been selected by a student. Cannot be deleted!');
         foreach($choice->files as $file){
             $file->pivot->delete();
@@ -103,10 +103,19 @@ class TeacherChoiceController extends Controller
 
     }
 
-    public function edit($id){
-        $choice=Choice::findorFail($id);
-        return view('teacherChoice/edit',['choice'=>$choice]);
+    public function edit(Request $request, $id){
+         $choice=Choice::findorFail($id);
+        if ($request->isMethod('GET')){
+            return view('teacherChoice/edit',['choice'=>$choice]);
+            }
+        else {
+            $choice->title=$request->title;
+            $choice->order=$request->order;
+            $choice->description=$request->description;
+            $choice->save();
+             return redirect()->route('teacherQuestion.show',$choice->question_id)->with('success','Choice has been updated!');
 
+        }
 
     }
 

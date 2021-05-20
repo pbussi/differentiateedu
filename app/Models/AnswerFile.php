@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class AssignmentsFile extends Pivot
+class AnswerFile extends Pivot
 {
     //
 }

@@ -18,6 +18,7 @@ class CreateChoicesTable extends Migration
             $table->timestamps();
             $table->text('title');
             $table->char('order',5);
+            $table->text('description')->nullable();
             $table->bigInteger('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions');
 

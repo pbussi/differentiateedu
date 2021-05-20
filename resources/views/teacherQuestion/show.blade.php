@@ -11,7 +11,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{url("teacherQuestion/list")}}">Question</a></li>
+                            <li class="breadcrumb-item"><a href="{{url("teacherQuestion/list/$question->course_id")}}">{{$question->course->name}}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$question->title}}</li>
                         </ol>
                     </nav>
@@ -36,7 +36,7 @@
                 <div class="card">
                     
                     <div class="card-body">
-                        <form class="form-horizontal form-material mx-2"  method="post" action="{{url("teacherQuestion/edit/{$question->id}")}}" >
+                        <form class="form-horizontal form-material mx-2"  method="post" action="{{url("teacherQuestion/edit/{$question->id}")}}"  enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label class="col-md-12">Title</label>
@@ -46,10 +46,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-12">Description</label>
-                                <div class="col-md-12">
+                                <label class="col-md-8">Description</label>
+                                <div class="col-md-8">
                                     <textarea rows="3" name=description class="form-control form-control-line" required>{{$question->description}}</textarea>
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                               
+                                <div class="col-md-4">
+                                   <label class="col-md-8">Related image</label>
+                                    <img class="card-img-top" src="{{url("file/download/{$question->picture->hash}")}}"alt="question image" width="200px" height="200px">
+                                    <input type="file" name=picture class="form-control form-control-line">
+                                </div>
+                                
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-3 col-xlg-3 col-md-5">
@@ -59,8 +68,8 @@
                                 </div>
                                 <div class="col-lg-3 col-xlg-3 col-md-5">
                                     <label>Due at</label>
-                                    <input type="text"
-                                    class="form-control form-control-line" value="{{date('m-d-Y', strtotime($question->finished_at))}}" readonly>
+                                    <input type="date"
+                                    class="form-control form-control-line" name=finished_at value="{{date('Y-m-d', strtotime($question->finished_at))}}">
                                 </div>
                                 <div class="col-lg-3 col-xlg-3 col-md-5">
                                     
@@ -88,9 +97,9 @@
                                     <table class="table v-middle table-hover">
                                         <thead>
                                             <tr class="bg-light">
-                                                <th class="border-top-0">Title</th>
+                                                <th class="border-top-0"></th>
                                                 <th class="border-top-0">Order</th>
-                                                <th class="border-top-0" >Actions</th>
+                                                <th class="border-top-0" ></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -105,7 +114,7 @@
                                                     </div>
                                                 </td>
                                                 <td style="align-content:center;">{{$choice->order}}</td>
-                                                <td> <button class="btn btn-warning text-white">Edit</button>
+                                                <td> <a href="{{url("teacherChoice/edit/{$choice->id}")}}" class="btn btn-warning text-white">Edit</a>
                                                     <a href="{{url("teacherChoice/delete/{$choice->id}")}}" class="btn btn-danger text-white">Delete</a></td>
                                                     
                                                 </tr>
@@ -140,9 +149,14 @@
                                     <div class="form-group row">
                                         @csrf
                                         
-                                        <div class="col-sm-5" >
-                                            <label  >New Title</label>
+                                        <div class="col-sm-4" >
+                                            <label  >Title</label>
                                             <input type="text" name=title
+                                            class="form-control form-control-line">
+                                        </div>
+                                         <div class="col-sm-5" >
+                                            <label>Description</label>
+                                            <input type="text" name=description
                                             class="form-control form-control-line">
                                             
                                         </div>
@@ -150,7 +164,7 @@
                                         <div class="col-sm-1" >
                                             <label>Order</label>
                                             <input type="text" name=order
-                                            class="form-control form-control-line" maxlength="5">
+                                            class="form-control form-control-line" maxlength="5" required>
                                         </div>
                                         <div class="col-sm-2">
                                             <button class="btn btn-success text-white" style="position:absolute; bottom: 0px;" type="submit">Add new</button>

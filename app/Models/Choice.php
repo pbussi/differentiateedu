@@ -12,21 +12,22 @@ class Choice extends Model
     protected $fillable = [
         'title',
         'order',
+        'description',
         'question_id'
 
     ];
 
     public function question(){
-    	return $this-belongsTo(Question::class);
+    	return $this->belongsTo(Question::class);
 
     }
     public function files()
     {
-        return $this->belongsToMany(File::class)->withPivot('description');
+        return $this->belongsToMany(File::class)->withPivot('description')->withPivot('id');
     }
 
-    public function assignments(){
-    	return $this->hasMany(Assignment::class);
+    public function answers(){
+    	return $this->hasMany(Answer::class);
     }
 
 }

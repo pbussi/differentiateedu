@@ -18,8 +18,7 @@ class CreateStudentsTable extends Migration
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->bigInteger('courses_id')->unsigned();
-            $table->foreign('courses_id')->references('id')->on('courses');
+           
             $table->bigInteger('picture_id')->unsigned()->nullable();
             $table->foreign('picture_id')->references('id')->on('files');
           

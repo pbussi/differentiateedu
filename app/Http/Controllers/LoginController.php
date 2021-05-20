@@ -14,7 +14,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectToTeacher = '/mycourses';
+    protected $redirectToStudent = '/myactivities';
   
     /**
      * Call the view
@@ -44,7 +45,10 @@ class LoginController extends Controller
         $user = Socialite::driver($provider)->user();
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
-        return redirect($this->redirectTo);
+        if (count(Auth::user()->teachers)>0)
+            return redirect($this->redirectToTeacher);
+        else
+            return redirect($this->redirectToStudent);
     }
     
     /**
@@ -56,8 +60,12 @@ class LoginController extends Controller
      */
     public function findOrCreateUser($user, $provider)
     {
-        $authUser = User::where('provider_id', $user->id)->first();
+        $authUser = User::where('email', $user->email)->first();
         if ($authUser) {
+            $authUser->name=$user->name;
+            $authUser->provider=$provider;
+            $authUser->provider_id=$user->id;
+            $authUser->save();
             return $authUser;
         }
         return User::create([
@@ -66,6 +74,17 @@ class LoginController extends Controller
             'provider' => $provider,
             'provider_id' => $user->id
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+    Auth::logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect('/');
     }
 }
 

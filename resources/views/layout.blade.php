@@ -17,6 +17,16 @@
     <link href={{asset("assets/libs/chartist/dist/chartist.min.css")}} rel="stylesheet">
     <!-- Custom CSS -->
     <link href={{asset("dist/css/style.css")}} rel="stylesheet">
+ 
+    <link href={{asset("dist/css/bootstrap-switch.min.css")}} rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <style>
+        .ui-autocomplete-loading {
+    background: white url("{{asset("assets/images/ui-anim_basic_16x16.gif")}}") right center no-repeat;}
+    </style>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and medAia queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -102,8 +112,8 @@
                                     My Profile</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i>
                                     My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i>
-                                    Inbox</a>
+                                <a class="dropdown-item" href="{{url("logout")}}"><i class="ti-email m-r-5 m-l-5"></i>
+                                    Logout</a>
                             </ul>
                         </li>
                         <!-- ============================================================== -->
@@ -140,8 +150,11 @@
 
 
     </div>
+              
+        
 
     <script src={{asset("assets/libs/jquery/dist/jquery.min.js")}}></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src={{asset("assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js")}}></script>
     <script src={{asset("dist/js/app-style-switcher.js")}}></script>
@@ -156,6 +169,12 @@
     <script src={{asset("assets/libs/chartist/dist/chartist.min.js")}}></script>
     <script src={{asset("assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js")}}></script>
     <script src={{asset("dist/js/pages/dashboards/dashboard1.js")}}></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+    @yield('internal_scripts')
+
+
 
     </body>
 

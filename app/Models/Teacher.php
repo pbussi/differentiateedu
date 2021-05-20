@@ -14,13 +14,7 @@ class Teacher extends Model
     	return $this->belongsTo(User::class); 
     }
 
-      public function questions(){
-    	return $this->hasMany(Question::class); 
-    }
-
-     public function assignments(){
-    	return $this->hasMany(Assignment::class); 
-    }
+    
 
         public function picture()
     {

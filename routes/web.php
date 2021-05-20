@@ -23,30 +23,48 @@ Route::get('/', function () {
 })->middleware('auth')->name('home');
 
 Route::get('login', 'LoginController@index')->name('login');
+Route::get('logout', 'LoginController@logout')->name('logout');
 Route::get('login/{provider}', 'LoginController@redirectToProvider');
 Route::get('{provider}/callback', 'LoginController@handleProviderCallback');
 Route::get('/home', function () {
 
 
-
-
-//echo Teacher::find(Auth::id())->user->name;
-//print_r(var_dump($user));
     return 'User is logged in';
 });
 
 //Route::resource('teacherQuestion', 'TeacherQuestionController');
-Route::get('teacherQuestion/list', 'TeacherQuestionController@list')->name('teacherQuestion.list');
-Route::post('teacherQuestion/edit/{id}', 'TeacherQuestionController@edit')->name('teacherQuestion.edit');
-Route::get('teacherQuestion/show/{id}', 'TeacherQuestionController@show')->name('teacherQuestion.show');
-Route::get('teacherChoice/delete/{id}', 'TeacherChoiceController@delete');
-Route::post('teacherChoice/add/{id}', 'TeacherChoiceController@add');
-Route::post('teacherChoice/addFile/{id}', 'TeacherChoiceController@addFile');
-Route::get('teacherChoice/edit/{id}', 'TeacherChoiceController@edit')->name('teacherChoice.edit');
-Route::get('file/download/{hash}', 'FileController@download');
-Route::get('file/deleteFile/{hash}', 'FileController@deleteFile');
-Route::get('userProfile/{id}','UserController@profile');
-Route::get('mycourses','CourseController@list')->name('mycourses');
-Route::get('mycourses/create','CourseController@create');
-Route::post('mycourses/create','CourseController@save');
-Route::any('mycourses/edit/{id}','CourseController@edit');
+Route::get('teacherQuestion/list/{course_id}', 'TeacherQuestionController@list')->name('teacherQuestion.list')->middleware("auth");
+Route::post('teacherQuestion/edit/{id}', 'TeacherQuestionController@edit')->name('teacherQuestion.edit')->middleware("auth");
+Route::get('teacherQuestion/show/{question_id}', 'TeacherQuestionController@show')->name('teacherQuestion.show')->middleware("auth");
+Route::any('teacherQuestion/create/{course_id}','TeacherQuestionController@create')->middleware("auth");
+Route::get('teacherQuestion/delete/{question_id}', 'TeacherQuestionController@delete')->middleware("auth");
+
+Route::get('teacherChoice/delete/{id}', 'TeacherChoiceController@delete')->middleware("auth");
+Route::post('teacherChoice/add/{id}', 'TeacherChoiceController@add')->middleware("auth");
+Route::post('teacherChoice/addFile/{id}', 'TeacherChoiceController@addFile')->middleware("auth");
+Route::any('teacherChoice/edit/{id}', 'TeacherChoiceController@edit')->name('teacherChoice.edit')->middleware("auth");
+Route::get('file/download/{hash}', 'FileController@download')->middleware("auth");
+Route::get('file/deleteFile/{hash}', 'FileController@deleteFile')->middleware("auth");
+Route::get('userProfile/{id}','UserController@profile')->middleware("auth");
+
+Route::get('mycourses','CourseController@list')->name('mycourses')->middleware("auth");
+Route::get('mycourses/create','CourseController@create')->middleware("auth");
+Route::post('mycourses/create','CourseController@save')->middleware("auth");
+Route::get('mycourses/participants/{course_id}','CourseController@participants')->name('participants')->middleware("auth");
+Route::any('mycourses/edit/{id}','CourseController@edit')->middleware("auth");
+Route::get('mycourses/getallparticipants','CourseController@participantsGetAll')->middleware("auth");
+Route::get('mycourses/addStudentToClass/{course_id}/{student_id}','CourseController@addStudentToClass')->middleware("auth");
+Route::get('mycourses/DeleteStudentFromClass/{course_id}/{student_id}','CourseController@DeleteStudentFromClass')->middleware("auth");
+
+
+Route::any('inviteStudent','UserController@inviteStudent')->name('inviteStudent')->middleware("auth");
+
+Route::get('myactivities','StudentController@list')->name('myactivites')->middleware("auth");
+Route::get('myactivities/questionList/{course_id}','StudentController@questionList')->middleware("auth");
+Route::get('myactivities/questionShow/{question_id}','StudentController@questionShow')->name('questionShow')->middleware("auth");
+Route::post('myactivities/saveMyChoice/','StudentController@saveMyChoice')->middleware("auth");
+Route::get('answerActivities/{choice_id}','StudentController@answerActivities')->name('answerActivities')->middleware("auth");
+
+Route::post('answerActivities/uploadWork/{$choice->id}','StudentController@uploadWork')->middleware("auth");
+
+

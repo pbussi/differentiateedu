@@ -39,6 +39,7 @@
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
+                            
                             @if ($user->teachers->count()>0)
                             <div class="card-body">
                                 <center class="m-t-30"> <img src="{{url("file/download/{$user->teacher->picture->hash}")}}"

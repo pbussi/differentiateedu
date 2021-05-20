@@ -19,9 +19,9 @@ class File extends Model
     {
         return $this->belongsToMany(Choice::class)->withPivot('description');
     }
-    public function assignments()
+    public function anwers()
     {
-        return $this->belongsToMany(Assignment::class);
+        return $this->belongsToMany(Answer::class);
     }
 }
 

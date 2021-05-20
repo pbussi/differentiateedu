@@ -11,8 +11,8 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{url("teacherQuestion/list")}}">Question</a></li>
-                             <li class="breadcrumb-item"><a href="{{url("teacherQuestion/show/{$choice->question_id}")}}">Choice</a></li>
+                            <li class="breadcrumb-item"><a href="{{url("teacherQuestion/list/{$choice->question->course->id}")}}">{{$choice->question->course->name}}</a></li>
+                            <li class="breadcrumb-item"><a href="{{url("teacherQuestion/show/{$choice->question->id}")}}">{{$choice->question->title}}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$choice->title}}</li>
                         </ol>
                     </nav>
@@ -37,7 +37,7 @@
                 <div class="card">
                     
                     <div class="card-body">
-                        <form class="form-horizontal form-material mx-2"  method="post" action="{{url("teacherQuestion/editChoice/{$choice->id}")}}" >
+                        <form class="form-horizontal form-material mx-2"  method="post" >
                             @csrf
                              <div class="form-group row">
                                 <label class="col-md-12">Title</label>
@@ -49,8 +49,14 @@
                             <div class="form-group row">
                                 <div class="col-sm-2" >
                                     <label  >Order</label>
-                                    <input type="text" name=title
+                                    <input type="text" name=order
                                     class="form-control form-control-line" maxlength="5" value={{$choice->order}}>   
+                               </div>
+                            </div>   
+                             <div class="form-group row">
+                                <div class="col-sm-8" >
+                                    <label>Choice Description</label>
+                                    <textarea name=description class="form-control form-control-line">{{$choice->description}} </textarea>  
                                </div>
                             </div>   
                             <input class="btn btn-success text-white" type=submit value=Save >

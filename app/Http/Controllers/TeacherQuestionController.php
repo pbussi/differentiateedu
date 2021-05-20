@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Question;
 use App\Models\Choice;
+use App\Models\Course;
+use App\Models\ChoiceFile;
+use App\Models\File;
+use Illuminate\Support\Facades\Storage;
+
   
 class TeacherQuestionController extends Controller
 {
@@ -24,10 +29,34 @@ class TeacherQuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $id)
     {
-        //
-    }
+       $course=Course::findorFail($id);
+      
+
+       if ($request->isMethod('GET')){
+            return view('teacherQuestion/create',['course'=>$course]);
+       }
+       if ($request->isMethod('POST')){
+             $question=new Question;
+             $input=$request->all();unset($input['_token']);
+             $question->course_id=$course->id;
+             if ($request->picture){
+                 $path=$request->picture->store('material');
+                 $file=File::create([ 'type' => $request->picture->getMimeType(),
+                              'hash'=>uniqid(),                
+                              'filename'=>$path,
+                              'original_filename'=>$request->picture->getClientOriginalName()]);
+    
+                $file->save();
+                $question->picture_id=$file->id;
+             }
+           
+             $question->fill($input)->save();
+             return redirect()->route('teacherQuestion.list',$course->id)->with('success','Question has been created!');
+       }
+
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -49,8 +78,8 @@ class TeacherQuestionController extends Controller
     public function show( $id)
     {
         $question=Question::find($id);
-        if($question->teacher_id!=Auth::user()->teachers[0]->id)
-            return redirect()->route('teacherQuestion.list')->with('error','Invalid access!');
+        if($question->course->teacher_id!=Auth::user()->teachers[0]->id)
+            return redirect()->route('mycourses')->with('error','Invalid access!');
         return view('teacherQuestion/show',['question'=>$question]);
     }
 
@@ -65,6 +94,18 @@ class TeacherQuestionController extends Controller
 
        $question=Question::findorFail($id);
        $input=$request->all();unset($input['_token']);
+        if ($request->picture){
+         $path=$request->picture->store('material');
+         $file=File::create([ 'type' => $request->picture->getMimeType(),
+                              'hash'=>uniqid(),                
+                              'filename'=>$path,
+                              'original_filename'=>$request->picture->getClientOriginalName()]);
+    
+         $file->save();
+         $question->picture_id=$file->id;
+        }
+            
+
        $question->fill($input)->save();
         return redirect()->route('teacherQuestion.show',$question->id)->with('success','Question updated!');
     }
@@ -87,33 +128,50 @@ class TeacherQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $question=Question::findorFail($id);
+        $course_id=$question->course_id;
+
+        $choices = Choice::where('question_id', $question->id)->get();
+        foreach ($choices as $choice) {     
+            foreach($choice->files as $file){   
+                ChoiceFile::destroy($file->pivot->id);
+                File::destroy($file->pivot->file_id);
+                Storage::delete($file->filename);
+            }
+            Choice::destroy($choice->id);
+        }
+        Question::destroy($question->id);
+        return redirect()->route('teacherQuestion.list',$course_id)->with('success','Question has been deleted!');
     }
-
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function list(Request $request)
+   
+
+    public function list(Request $request, $id)
     {
+        $course=Course::findorFail($id);
+        if ($course->teacher_id!=Auth::user()->teachers[0]->id) 
+            return redirect()->route('mycourses')->with('errer','Invalid Access');
+        
         $status=$request->input('status');
         if ($status=='' or $status=='all'){
-            $questions=Auth::user()->teachers[0]->questions;
-            return view('teacherQuestion/list',['questions'=>$questions]);
+            $questions=$course->questions;
+            return view('teacherQuestion/list',['questions'=>$questions,'course'=>$course]);
         }
      
         if ($status=='active'){
-            $questions=Auth::user()->teachers[0]->questions->where('finished_at', '>=', date('Y-m-d H:i:s'));
+            $questions=$course->questions->where('finished_at', '>=', date('Y-m-d H:i:s'));
 
         }else
         {
-            $questions=Auth::user()->teachers[0]->questions->where('finished_at', '<', date('Y-m-d H:i:s'));
+            $questions=$course->questions->where('finished_at', '<', date('Y-m-d H:i:s'));
         }
-        return view('teacherQuestion/list',['questions'=>$questions]);
+        return view('teacherQuestion/list',['questions'=>$questions,'course'=>$course]);
      }   
 
       /**

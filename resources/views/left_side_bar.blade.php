@@ -18,11 +18,11 @@
                                         <span class="op-5 user-email">{{Auth::user()->email}}</span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="Userdd">
-                                        <a class="dropdown-item" href="javascript:void(0)"><i
+                                        <a class="dropdown-item" href={{url("userProfile")}}/{{Auth::User()->id}}><i
                                                 class="ti-user m-r-5 m-l-5"></i> My Profile</a>
                                
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i
+                                        <a class="dropdown-item" href={{url("logout")}}><i
                                                 class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                     </div>
                                 </div>
@@ -38,8 +38,8 @@
                         @if (Auth::user()->students->count()>0)
 
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-profile.html" aria-expanded="false"><i
-                                    class="mdi mdi-account-network"></i><span class="hide-menu">Preferences</span></a></li>
+                                href={{url("myactivities")}}  aria-expanded="false">
+                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="table-basic.html" aria-expanded="false"><i class="mdi mdi-border-all"></i><span
                                     class="hide-menu">Pending Questions</span></a></li>
@@ -54,8 +54,8 @@
                         @if (Auth::user()->teachers->count()>0)
 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-file"></i><span
-                                    class="hide-menu">Preferences</span></a></li>
+                                href={{url("mycourses")}} aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">Dashboard</span></a></li>
 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-file"></i><span
@@ -64,8 +64,7 @@
                                 href="error-404.html" aria-expanded="false"><i class="mdi mdi-alert-outline"></i><span
                                     class="hide-menu">Results</span></a></li>
                        
-                             <li class="p-15 m-t-10"><a 
-                                class="btn d-block w-100 create-btn text-white no-block d-flex align-items-center"> <span class="hide-menu m-l-5" ><b>Create New Question</b></span></a>
+                             <li class="p-15 m-t-10"><a href="{{url("mycourses/create")}}" class="btn d-block w-100 create-btn text-white  d-flex "> <span class="hide-menu m-l-5" ><b><i class="m-r-10 mdi mdi-shape-rectangle-plus"></i>Create New Class</b></span></a>
                              </li> 
 
                         @endif

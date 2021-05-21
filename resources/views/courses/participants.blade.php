@@ -39,7 +39,7 @@
                     
                     <div class="card-body">
                         <div class="form-group row">
-                            <h5><label class="col-md-12">Participants</label></h5>
+                            <h5><label class="col-md-12"><img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/std3.png")}}>Participants</label></h5>
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table">
@@ -96,7 +96,7 @@
                             <div class="card-body">
                                     <div class="form-group row">
                                         @csrf
-                                        <label class="col-md-12">Add student to class</label>
+                                        <label class="col-md-12"><img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/addstudent.png")}}>Add student to class</label>
                                         <div class="col-sm-6" >
                                            <div class="ui-widget">
                                                 <input id="search" type="text" name=title

@@ -60,11 +60,14 @@ Route::get('mycourses/DeleteStudentFromClass/{course_id}/{student_id}','CourseCo
 Route::any('inviteStudent','UserController@inviteStudent')->name('inviteStudent')->middleware("auth");
 
 Route::get('myactivities','StudentController@list')->name('myactivites')->middleware("auth");
-Route::get('myactivities/questionList/{course_id}','StudentController@questionList')->middleware("auth");
+Route::get('myactivities/questionList/{course_id}','StudentController@questionList')->middleware("auth")->name("myactivities.questionList");
 Route::get('myactivities/questionShow/{question_id}','StudentController@questionShow')->name('questionShow')->middleware("auth");
 Route::post('myactivities/saveMyChoice/','StudentController@saveMyChoice')->middleware("auth");
-Route::get('answerActivities/{choice_id}','StudentController@answerActivities')->name('answerActivities')->middleware("auth");
+Route::any('answerActivities/{choice_id}','StudentController@answerActivities')->name('answerActivities')->middleware("auth");
 
-Route::post('answerActivities/uploadWork/{$choice->id}','StudentController@uploadWork')->middleware("auth");
+Route::post('answerActivities/uploadWork/{id}','StudentController@uploadWork')->middleware("auth");
+Route::get('answerActivities/deleteWork/{answer_id}/{file_id}','StudentController@deleteWork')->middleware("auth");
+Route::get('myactivities/saveDraft/{answer_id}','StudentController@saveDraft')->middleware("auth");
+Route::get('myactivities/viewMyWork/{answer_id}','StudentController@viewMyWork')->middleware("auth");
 
 

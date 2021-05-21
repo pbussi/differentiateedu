@@ -25,7 +25,8 @@ class CreateAnswersTable extends Migration
             $table->bigInteger('choice_id')->unsigned();
             $table->foreign('choice_id')->references('id')->on('choices');
             $table->text('notes')->nullable();
-            $table->float('calification')->nullable();
+            $table->dateTime('review_date')->nullable();
+            $table->float('mark')->nullable();
             $table->text('teacher_notes')->nullable();
         });
 

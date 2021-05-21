@@ -87,11 +87,12 @@
                                     <thead>
                                         <tr class="bg-light">
                                             <th class="border-top-0">Question</th>
-                                             <th class="border-top-0">Class</th>
+                                           
                                             <th class="border-top-0">Created</th>
                                              <th class="border-top-0">Due to</th>
                                              <th class="border-top-0"></th>
                                              <th class="border-top-0">Your work</th>
+                                             <th class="border-top-0"></th>
                                           
                                         </tr>
                                     </thead>
@@ -107,7 +108,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{$course->name}}</td>
+                                           
                                          
                                              <td>{{$question->created_at->format('m-d-Y')}}</td>
                                              <td>{{date('m-d-Y', strtotime($question->finished_at))}}</td>
@@ -119,24 +120,33 @@
                                              		@if ($answer!==NULL)
                                              			@if ($answer->completed_at!==NULL)
                                              				</td><td><span class="label label-rounded label-success"><i class="m-r-10 mdi mdi-check-all" style="margin-right:5px;"></i><b>COMPLETED<b></span></td>
+                                                                @if ($answer->review_date)
+                                                                   <td><span class="label label-rounded label-success"><i class="m-r-10 mdi mdi-check-all" style="margin-right:5px;"></i><b>CORRECTED<b></span></td></b></tr>
+                                                                @else
+                                                                 <td><span class="label label-rounded label-danger"><i class="m-r-10 mdi mdi-check-all" style="margin-right:5px;"></i><b>WAITING CORRECTION<b></span></td></b></tr>
+                                                                @endif
+
                                              			@else
                                              				@if (date('U', strtotime($question->finished_at))< date("U"))
                                              					<span class="label label-rounded label-danger">Closed</span></td>
                                              					<td><span class="label label-rounded label-danger"><i class="mdi mdi-emoticon-dead" style="margin-right:5px;"></i><b>No more time</b></span></td>
+                                                                <td></td>
                                                  			@else
                                                     			<span class="label label-rounded label-success">Open</span></td>
                                                     			<td><span class="label label-rounded label-warning"><i class="m-r-10 mdi mdi-wrench" style="margin-right:5px;"></i><B>Working on it!</B></span></td>
+                                                                <td><p class="card-text"><small class="text-muted"> Last Update: {{date('m-d-Y H:i:s', strtotime($answer->updated_at))}}</small></p>
                                              				@endif
                                              				
                                              			@endif
                                              		@else
                                              			@if (date('U', strtotime($question->finished_at))< date("U"))
-                                             					<span class="label label-rounded label-danger">Closed</span></td>
+                                             					<span class="label label-rounded label-danger">Closed</span></td><td></td><td></td></tr>
 
                                                  		@else
                                                     			<span class="label label-rounded label-success">Open</span></td>
                                              			@endif
-                                             			<td></td>
+                                        
+                                                     
                                              		@endif
                                         		</tr>
                                      @endforeach

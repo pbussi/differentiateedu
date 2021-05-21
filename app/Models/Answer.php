@@ -16,7 +16,8 @@ class Answer extends Model
         'question_id',
         'choice_id',
         'notes',
-        'calification',
+        'review_date',
+        'mark',
         'teacher_notes',
     ];
  
@@ -26,14 +27,16 @@ class Answer extends Model
 
     }
 
-    public function asignmmentsFiles()
-    {
-        return $this->hasMany(AssignmentsFile::class);
-    }
+  
 
       public function choice(){
     	return $this-belongsTo(Choice::class);
 
+    }
+
+      public function files()
+    {
+         return $this->belongsToMany(File::class)->withPivot('id');
     }
 
 }

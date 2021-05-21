@@ -110,7 +110,7 @@
                                         @if ($answer->completed_at=="")
                                           <button type="button" class="btn btn-outline-warning" onClick="window.location='{{url("answerActivities/{$selectedChoice->id}")}}'">Continue working</button>
                                         @else
-                                        <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("myactivities/working/{$selectedChoice->id}")}}'">View your work</button>
+                                        <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("myactivities/viewMyWork/{$selectedChoice->id}")}}'">View your work</button>
                                         @endif
                                      </div>
                                         

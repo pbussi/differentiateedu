@@ -18,8 +18,8 @@ class CreateAnswerFileTable extends Migration
             $table->timestamps();
             $table->bigInteger('answer_id')->unsigned();
             $table->foreign('answer_id')->references('id')->on('answers');
-            $table->bigInteger('files_id')->unsigned();
-            $table->foreign('files_id')->references('id')->on('files');
+            $table->bigInteger('file_id')->unsigned();
+            $table->foreign('file_id')->references('id')->on('files');
 
         });
     }

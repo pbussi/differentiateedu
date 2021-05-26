@@ -30,5 +30,10 @@ class Choice extends Model
     	return $this->hasMany(Answer::class);
     }
 
+    public function links(){
+        return $this->hasMany(Link::class);
+    }
+
+
 }
 

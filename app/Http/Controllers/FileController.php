@@ -28,6 +28,8 @@ class FileController extends Controller
 		 return redirect()->route('teacherChoice.edit',$choice_id)->with('success','File has been deleted!');
 
 	}
+
+	
 }
 
 

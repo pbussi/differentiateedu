@@ -41,11 +41,9 @@
                                 href={{url("myactivities")}}  aria-expanded="false">
                                 <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="table-basic.html" aria-expanded="false"><i class="mdi mdi-border-all"></i><span
+                                href={{route('pendingQuestions')}} aria-expanded="false"><i class="mdi mdi-comment-question-outline"></i><span
                                     class="hide-menu">Pending Questions</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="icon-material.html" aria-expanded="false"><i class="mdi mdi-face"></i><span
-                                    class="hide-menu">Completed Questions</span></a></li>
+                       
                         @endif                       
 
                      
@@ -55,17 +53,9 @@
 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href={{url("mycourses")}} aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-file"></i><span
-                                    class="hide-menu">Questions</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="error-404.html" aria-expanded="false"><i class="mdi mdi-alert-outline"></i><span
-                                    class="hide-menu">Results</span></a></li>
+                                    class="hide-menu">Dashboard</span></a></li>                            
                        
-                             <li class="p-15 m-t-10"><a href="{{url("mycourses/create")}}" class="btn d-block w-100 create-btn text-white  d-flex "> <span class="hide-menu m-l-5" ><b><i class="m-r-10 mdi mdi-shape-rectangle-plus"></i>Create New Class</b></span></a>
-                             </li> 
+                        
 
                         @endif
 

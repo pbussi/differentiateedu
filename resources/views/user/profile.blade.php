@@ -48,10 +48,10 @@
                                     <h6 class="card-subtitle">                                      
                                             TEACHER
                                     </h6>
-                                   
                                 </center>
                             </div>
                             @endif
+                           
 
                              @if ($user->students->count()>0)
                             <div class="card-body">
@@ -65,20 +65,23 @@
                                 </center>
                             </div>
                             @endif
+                             <div class="card-body">
+                            <form method="post" action="{{url("user/updatePicture/{$user->id}")}}"  enctype="multipart/form-data">
+                                @csrf
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                         <input class="form-control" type="file" name=picture accept="image/*" />
+                                    </div>
+                                    <button class="btn btn-light-info text-info font-medium" type="submit">Update</button>
+                                </div>
+                            </form>
+                             </div>
 
                             <div>
                                 <hr>
                             </div>
                             <div class="card-body"> <small class="text-muted">Email address </small>
-                                <h6>{{$user->email}}</h6> <small class="text-muted p-t-30 db">School</small>
-                                <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">School Address</small>
-                                <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
-                                <div class="map-box">
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508"
-                                        width="100%" height="150" frameborder="0" style="border:0"
-                                        allowfullscreen></iframe>
-                                </div>  
+                                <h6>{{$user->email}}</h6>
                             </div>
                         </div>
                     </div>
@@ -87,12 +90,13 @@
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
                             <div class="card-body">
-                                <form class="form-horizontal form-material mx-2">
+                            <form method="post" action="">
+                                @csrf
                                     <div class="form-group">
                                         <label class="col-md-12">Full Name</label>
                                         <div class="col-md-12">
                                             <input type="text"
-                                                class="form-control form-control-line" value="{{$user->name}}" id="name" required>
+                                                class="form-control form-control-line" value="{{$user->name}}" id="name" name=username required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -108,37 +112,13 @@
                                                 class="form-control form-control-line" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Phone No</label>
-                                        <div class="col-md-12">
-                                            <input type="text" placeholder="123 456 7890"
-                                                class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Message</label>
-                                        <div class="col-md-12">
-                                            <textarea rows="5" class="form-control form-control-line"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-12">Select Country</label>
-                                        <div class="col-sm-12">
-                                            <select class="form-select shadow-none form-control-line">
-                                                <option>London</option>
-                                                <option>India</option>
-                                                <option>Usa</option>
-                                                <option>Canada</option>
-                                                <option>Thailand</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="form-group">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success text-white">Update Profile</button>
+                                            <button class="btn btn-success text-white" type=submit>Update Profile</button>
                                         </div>
                                     </div>
-                                </form>
+                            </form>
                             </div>
                         </div>
                     </div>

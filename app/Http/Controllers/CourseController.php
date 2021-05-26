@@ -110,6 +110,7 @@ public function list()
     }
 
     public function AddStudentToClass($course_id,$student_id){
+      $mailto=Student::find($student_id);
  
       $student=CourseStudent::where('student_id',$student_id)->
                      where('course_id',$course_id)->get();
@@ -120,7 +121,8 @@ public function list()
          $newStudent=CourseStudent::create([ 'course_id' => $course_id,
                                              'student_id'=>$student_id]);
         $newStudent->save();
-         return redirect()->route('participants',['course_id'=>$course_id])->with('success','Student added');
+        mail($mailto->user->email, "You have been added to a class", "vamos a probarlo primero\n puede ser?");
+         return redirect()->route('participants',['course_id'=>$course_id])->with('success','Student added. Mail sent to: '.$mailto->user->email);
     }
 
 

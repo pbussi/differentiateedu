@@ -67,8 +67,38 @@
                                                     @endif
                                                     </td>
                                                  <td> 
+                                            </tr>
+                                            @endforeach
+                                            @foreach ($myanswerChoice->links as $link)
+                                               <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="">
+                                                        <h4 class="m-b-0 font-16">
+                                                            @if ($link->type=='link')
+                                                                <a href="{{$link->url}}">{{$link->url}}</a></h4>
+                                                            @endif
+
+                                                            @if ($link->type=='youtube')
+                                                                <iframe width="300" height="150" src="//www.youtube.com/embed/{{$link->url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td style="align-content:center;"> 
+                                                           @if ($link->type=='link')
+                                                                <img src={{asset("assets/images/fileIcons/urlicon.png")}} width="48" height="48">
+                                                            @endif
+                                                            @if ($link->type=='youtube')
+                                                                <img src={{asset("assets/images/fileIcons/youtube.png")}} width="60" height="48">
+                                                            @endif
+                                                   
+                                                  </td>
+                                               
                                                  
                                             </tr>
+
                                             @endforeach
                                         </tbody>
                                     </table>

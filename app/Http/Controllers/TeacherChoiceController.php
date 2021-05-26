@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Choice;
 use App\Models\File;
 use App\Models\ChoiceFile;
+use App\Models\Link;
 
 class TeacherChoiceController extends Controller
 {
@@ -141,5 +142,38 @@ class TeacherChoiceController extends Controller
    
 
     }
+
+
+    public function addLink(Request $request,$id)
+    {
+        if ($request->type=='youtube'){
+            $pos = strpos($request->url,'youtube.com/watch?v=');
+            if ($pos==false)
+                 return redirect()->route('teacherChoice.edit',$id)->with('error','Not a valid Youtube url');
+            $code=substr($request->url, $pos+20);
+            $link=$code;
+        }else{
+
+             if ($request->type=='link'){
+                $link=$request->url;
+                if (substr($link,0,4)!='http')
+                    $link='http://'.$link;
+                
+             }else{
+                return redirect()->route('teacherChoice.edit',$id)->with('error','Invalid entry!');
+                }
+        }
+
+   
+         $link=Link::create(['url'=>$link,
+                            'type'=>$request->type,
+                            'choice_id'=>$id]);
+         $link->save;
+   
+       return redirect()->route('teacherChoice.edit',$id)->with('success','Link added!');
+   
+
+    }
+
 
 }

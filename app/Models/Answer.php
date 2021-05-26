@@ -23,20 +23,25 @@ class Answer extends Model
  
 
       public function question(){
-    	return $this-belongsTo(Question::class);
+    	return $this->belongsTo(Question::class);
 
     }
 
   
 
       public function choice(){
-    	return $this-belongsTo(Choice::class);
+    	return $this->belongsTo(Choice::class);
 
     }
 
       public function files()
     {
          return $this->belongsToMany(File::class)->withPivot('id');
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
     }
 
 }

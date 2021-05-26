@@ -90,7 +90,7 @@
                                     <thead>
                                         <tr class="bg-light">
                                             <th class="border-top-0">Question</th>
-                                             <th class="border-top-0">Class</th>
+                                             <th class="border-top-0"></th>
                                             <th class="border-top-0">Created</th>
                                              <th class="border-top-0">Due to</th>
                                              <th class="border-top-0"></th>
@@ -104,25 +104,40 @@
                                          <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                   
-                                                    <div class="">
                                                         <h4 class="m-b-0 font-16"><a href={{url("teacherQuestion/show/{$question->id}")}}>{{$question->title}}</a></h4>
-                                                    </div>
                                                 </div>
                                             </td>
-                                            <td>{{$course->name}}</td>
-                                         
+                                            <td>
+                                                <div class="m-icon"><a href={{url("teacherQuestion/show/{$question->id}")}}><i class="m-r-10 mdi mdi-lead-pencil"></i></a></div>
+                                                <div class="m-icon"><a href={{url("teacherQuestion/delete/{$question->id}")}}><i class="m-r-10 mdi mdi-delete"></i></a></div>
+                                            </td>
                                              <td>{{$question->created_at->format('m-d-Y')}}</td>
                                              <td>{{date('m-d-Y', strtotime($question->finished_at))}}</td>
                                              <td align="center">@if (date('U', strtotime($question->finished_at))< date("U"))
-                                             		<span class="label label-rounded label-danger">Closed</span>
+                                             		<span class="label label-rounded label-inverse">Closed</span>
                                                  @else
                                                     <span class="label label-rounded label-success">Open</span>
                                              	@endif
                                              </td>
-                                             <td><div class="m-icon"><a href={{url("teacherQuestion/delete/{$question->id}")}}><i class="m-r-10 mdi mdi-delete"></i></a></div>
-                                                <div class="m-icon"><a href={{url("teacherQuestion/show/{$question->id}")}}><i class="m-r-10 mdi mdi-lead-pencil"></i></a></div></td>
-             
+                                             @php $color="grey"; @endphp
+                                             @foreach ($question->answers as $answer)
+                                                @if ($answer->completed_at!="" && $answer->review_date=="")
+                                                    @php $color="danger"; @endphp
+
+                                                @endif
+
+                                            @endforeach
+                                                    <td>
+                                                        @if ($color=="danger")
+                                                           <a href={{url("teacherQuestion/studentsResults/{$question->id}")}}> <span class="label label-rounded label-{{$color}} blink_me">Pending students Answers</span></a></td>
+                                                        @else
+                                                         <img src={{asset("assets/images/check_result.png")}} width="20px" ><small class="text-muted"> <a href={{url("teacherQuestion/studentsResults/{$question->id}")}}>View Students Results </a></small></td>
+                                                        @endif
+                                                
+
+
+
+                                             
                                         </tr>
                                      @endforeach
                                     </tbody>

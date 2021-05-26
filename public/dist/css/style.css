@@ -8871,6 +8871,19 @@ Labels
 .label-default {
   background-color: #f8f9fa; }
 
+.label-grey {
+  background-color: #C0C0C0; }
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 /*******************
 Preloader
 ********************/
@@ -9177,7 +9190,8 @@ Table Cell
 
 .table thead th,
 .table th {
-  font-weight: 500; }
+  font-weight: 650; 
+  font-size:14px;}
 
 .nowrap {
   white-space: nowrap; }

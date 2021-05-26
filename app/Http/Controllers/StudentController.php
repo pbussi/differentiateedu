@@ -10,6 +10,7 @@ use App\Models\Answer;
 use App\Models\Choice;
 use App\Models\AnswerFile;
 use App\Models\File;
+use App\Models\Student;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,6 +21,7 @@ class StudentController extends Controller
   		$courses=Auth::user()->students[0]->courses->sortBy('created_at');
   		return view('student.dashboard',['courses'=>$courses]);
 	}
+
 
 	public function questionList(request $request,$id){
       
@@ -35,16 +37,20 @@ class StudentController extends Controller
        
         $status=$request->input('status');
         if ($status=='' or $status=='all'){
-            $questions=$course->questions;
+
+           $questions=$course->questions->sortByDesc('finished_at');;
             return view('student/questionList',['questions'=>$questions,'course'=>$course]);
         }
      
         if ($status=='active'){
-            $questions=$course->questions->where('finished_at', '>=', date('Y-m-d H:i:s'));
+           
+           
+            $questions=$course->questions->where('finished_at', '>=', date('Y-m-d H:i:s'))->sortByDesc('finished_at');;
+
 
         }else
         {
-            $questions=$course->questions->where('finished_at', '<', date('Y-m-d H:i:s'));
+            $questions=$course->questions->where('finished_at', '<', date('Y-m-d H:i:s'))->sortByDesc('finished_at');
         }
         return view('student/questionList',['questions'=>$questions,'course'=>$course]);
     }  
@@ -174,9 +180,23 @@ class StudentController extends Controller
                        where('choice_id',"=",$choice_id)->get();
         return view('student/viewMyWork',['myanswerChoice'=>$choice,'question'=>$question,'answer'=>$answer[0]]);
         
-
-
-
     }
+
+    public function pendingWork(){
+      $student=Student::find(Auth::user()->students[0]->id);
+      $allStudentCourses=$student->courses;
+      $pendingQuestions=array();
+      foreach($allStudentCourses as $course){
+        foreach ($course->questions as $question){
+            $answer=Answer::where('question_id',"=",$question->id)->where('student_id',"=",$student->id)->first();
+           if (!$answer or $answer->completed_at==NULL){
+              $pendingQuestions[]=array('question'=>$question,'answer'=>$answer);
+           }
+        }
+       return view('student/pendingQuestions',['pendingQuestions'=>$pendingQuestions,'student'=>$student]);
+
+      }
+    }
+     
 }
 

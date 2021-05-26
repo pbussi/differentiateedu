@@ -7,9 +7,13 @@ use Auth;
 use App\Models\Question;
 use App\Models\Choice;
 use App\Models\Course;
+use App\Models\CourseStudent;
 use App\Models\ChoiceFile;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Answer;
+
+use App\Models\Student;
 
   
 class TeacherQuestionController extends Controller
@@ -156,7 +160,7 @@ class TeacherQuestionController extends Controller
     {
         $course=Course::findorFail($id);
         if ($course->teacher_id!=Auth::user()->teachers[0]->id) 
-            return redirect()->route('mycourses')->with('errer','Invalid Access');
+            return redirect()->route('mycourses')->with('error','Invalid Access');
         
         $status=$request->input('status');
         if ($status=='' or $status=='all'){
@@ -173,6 +177,42 @@ class TeacherQuestionController extends Controller
         }
         return view('teacherQuestion/list',['questions'=>$questions,'course'=>$course]);
      }   
+
+
+     public function studentsResults($id){
+
+        $question=Question::find($id);
+        $course=Course::find($question->course_id);
+        $studentsresponse=array();
+         foreach (Answer::where('question_id',"=",$id)->get() as $item) {
+            $studentsresponse[$item->student_id]=$item->student_id;
+        } 
+        $students_no_answer=array();
+        foreach (CourseStudent::where('course_id',"=",$course->id)->get() as $coursestudent) {
+            if (!isset($studentsresponse[$coursestudent->student_id]))
+                $students_no_answer[]=Student::find($coursestudent->student_id);
+        }
+        return view('teacherQuestion/studentsResults',['question'=>$question,'course'=>$course,'students_no_answer'=>$students_no_answer]);
+     }
+
+
+     public function correct(Request $request, $answer_id){
+
+        $answer=Answer::find($answer_id);
+         if ($request->isMethod('GET')){
+            $answer=Answer::find($answer_id);
+            return view('teacherQuestion/correct',['answer'=>$answer]);
+         }
+         
+         if ($request->isMethod('POST')){
+            $answer->review_date=date('Y-m-d H:i:s');
+            $answer->mark=$request->mark;
+            $answer->teacher_notes=$request->teacher_notes;
+            $answer->save();
+            return redirect()->route('studentsResults',$answer->question_id)->with('success','Correction done!');
+         }
+
+     }
 
       /**
      * Display the specified resource.

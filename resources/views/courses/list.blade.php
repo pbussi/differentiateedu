@@ -66,12 +66,13 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{$course->name}}</h5>
                                  <p class="card-text">{{$course->description_heading}}</p>
-                                <p class="card-text"><small class="text-muted">Total Students:</small></p>
+                            
                                 <p class="card-text"><small class="text-muted"> updated at: {{date('m-d-Y H:i', strtotime($course->updated_at))}}</small></p>
                             </div></a>
                             <div class="card-footer" style="text-align: right;">
-                                <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded">Edit </span></a>
-                                <a href="{{url("mycourses/participants/{$course->id}")}}" ><span class="label label-warning label-rounded">Manage Students </span></a>
+                                <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded" style="margin-right:5px;">Edit </span></a>
+                                <a href="{{url("mycourses/participants/{$course->id}")}}" ><span class="label label-warning label-rounded" style="margin-right:5px;">Manage Students </span></a>
+                                 <span class="label label-megna label-rounded">{{count($course->students)}} Participants</span></a>
                             </div>
 
                         </div>

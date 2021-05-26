@@ -109,6 +109,38 @@
                                                     <a href="{{url("file/deleteFile/{$file->hash}")}}" class="btn btn-danger text-white">Delete</a></td>   
                                             </tr>
                                             @endforeach
+
+                                             @foreach ($choice->links as $link)
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        
+                                                        <div class="">
+                                                        <h4 class="m-b-0 font-16">
+                                                            @if ($link->type=='link')
+                                                                <a href="{{$link->url}}">{{$link->url}}</a></h4>
+                                                            @endif
+
+                                                            @if ($link->type=='youtube')
+                                                                <iframe width="300" height="150" src="//www.youtube.com/embed/{{$link->url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td style="align-content:center;"> 
+                                                           @if ($link->type=='link')
+                                                                <img src={{asset("assets/images/fileIcons/urlicon.png")}} width="48" height="48">
+                                                            @endif
+                                                            @if ($link->type=='youtube')
+                                                                <img src={{asset("assets/images/fileIcons/youtube.png")}} width="60" height="48">
+                                                            @endif
+                                                   
+                                                    </td>
+                                                 <td> 
+                                                    <a href="{{url("link/deleteLink/{$link->id}")}}" class="btn btn-danger text-white">Delete</a></td>   
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -131,7 +163,7 @@
                         <!-- title -->
                         <div class="d-md-flex">
                             <div>
-                                <label class="col-md-12">Add Content</label>
+                                <label class="col-md-12">  <img src={{asset("assets/images/addfile.png")}} width=40px>Add Content</label>
                             </div>
                             
                         </div>
@@ -153,6 +185,51 @@
                                     <input type="file" name=file
                                     class="form-control form-control-line">
                                 </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-success text-white" style="position:absolute; bottom: 0px;" type="submit">Add new</button>
+                                </div>
+                                
+                            </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+         <div class="row">
+            <!-- column -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- title -->
+                        <div class="d-md-flex">
+                            <div>
+
+                                <label class="col-md-12"><img src={{asset("assets/images/addurl.png")}} width=40px>Add Link / Multimedia</label>
+                            </div>
+                            
+                        </div>
+                          <div class="card-body">
+                            <form class="form-horizontal form-material mx-2"  method="post" action="{{url("teacherChoice/addLink/{$choice->id}")}}"  enctype="multipart/form-data">
+                            <div class="form-group row">
+                                 @csrf
+                            
+                                <div class="col-sm-5" >
+                                    <label  >Url</label>
+                                    <input type="text" name=url
+                                    class="form-control form-control-line" required>       
+                                </div>
+                                  <div class="col-sm-4" >
+                                 <label>Choose type:</label>
+                                 <select id="type" name="type" class="form-select shadow-none" style="width: 100%">
+                                    <option value="youtube">Youtube Video</option>
+                                    <option value="link">Link</option>
+                                </select> 
+                            </div>
+                               
                                 <div class="col-sm-2">
                                     <button class="btn btn-success text-white" style="position:absolute; bottom: 0px;" type="submit">Add new</button>
                                 </div>

@@ -22,7 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth')->name('home');
 
-Route::get('login', 'LoginController@index')->name('login');
+Route::any('login', 'LoginController@index')->name('login');
 Route::get('logout', 'LoginController@logout')->name('logout');
 Route::get('login/{provider}', 'LoginController@redirectToProvider');
 Route::get('{provider}/callback', 'LoginController@handleProviderCallback');
@@ -39,13 +39,18 @@ Route::get('teacherQuestion/show/{question_id}', 'TeacherQuestionController@show
 Route::any('teacherQuestion/create/{course_id}','TeacherQuestionController@create')->middleware("auth");
 Route::get('teacherQuestion/delete/{question_id}', 'TeacherQuestionController@delete')->middleware("auth");
 
+Route::get('teacherQuestion/studentsResults/{question_id}', 'TeacherQuestionController@studentsResults')->middleware("auth")->name('studentsResults');
+Route::any('teacherQuestion/correct/{answer_id}', 'TeacherQuestionController@correct')->middleware("auth");
+
 Route::get('teacherChoice/delete/{id}', 'TeacherChoiceController@delete')->middleware("auth");
 Route::post('teacherChoice/add/{id}', 'TeacherChoiceController@add')->middleware("auth");
 Route::post('teacherChoice/addFile/{id}', 'TeacherChoiceController@addFile')->middleware("auth");
+Route::post('teacherChoice/addLink/{id}', 'TeacherChoiceController@addLink')->middleware("auth");
 Route::any('teacherChoice/edit/{id}', 'TeacherChoiceController@edit')->name('teacherChoice.edit')->middleware("auth");
 Route::get('file/download/{hash}', 'FileController@download')->middleware("auth");
 Route::get('file/deleteFile/{hash}', 'FileController@deleteFile')->middleware("auth");
-Route::get('userProfile/{id}','UserController@profile')->middleware("auth");
+Route::any('userProfile/{id}','UserController@profile')->middleware("auth")->name('userProfile');
+Route::post('user/updatePicture/{userid}','UserController@updatePicture')->middleware("auth");
 
 Route::get('mycourses','CourseController@list')->name('mycourses')->middleware("auth");
 Route::get('mycourses/create','CourseController@create')->middleware("auth");
@@ -60,6 +65,7 @@ Route::get('mycourses/DeleteStudentFromClass/{course_id}/{student_id}','CourseCo
 Route::any('inviteStudent','UserController@inviteStudent')->name('inviteStudent')->middleware("auth");
 
 Route::get('myactivities','StudentController@list')->name('myactivites')->middleware("auth");
+Route::get('myactivities/pendingQuestions','StudentController@pendingWork')->name('pendingQuestions')->middleware("auth");
 Route::get('myactivities/questionList/{course_id}','StudentController@questionList')->middleware("auth")->name("myactivities.questionList");
 Route::get('myactivities/questionShow/{question_id}','StudentController@questionShow')->name('questionShow')->middleware("auth");
 Route::post('myactivities/saveMyChoice/','StudentController@saveMyChoice')->middleware("auth");
@@ -69,5 +75,7 @@ Route::post('answerActivities/uploadWork/{id}','StudentController@uploadWork')->
 Route::get('answerActivities/deleteWork/{answer_id}/{file_id}','StudentController@deleteWork')->middleware("auth");
 Route::get('myactivities/saveDraft/{answer_id}','StudentController@saveDraft')->middleware("auth");
 Route::get('myactivities/viewMyWork/{answer_id}','StudentController@viewMyWork')->middleware("auth");
+
+Route::get('link/deleteLink/{id}', 'LinkController@deleteLink')->middleware("auth");
 
 

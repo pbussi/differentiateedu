@@ -71,7 +71,7 @@
                                             <select name=status id=status class="form-select shadow-none" onchange="$('#filter').submit()" >
                                                 <option value="all" @if (app('request')->input('status')=='all') selected @endif >All  </option>
                                                 <option value="active"  @if (app('request')->input('status')=='active') selected @endif>Active</option>
-                                                <option value="completed"  @if (app('request')->input('status')=='completed') selected @endif>Completed</option>
+                                                <option value="completed"  @if (app('request')->input('status')=='completed') selected @endif>Finished</option>
                                             </select>
                                         </form> 	
                                         </div>
@@ -128,7 +128,7 @@
 
                                              			@else
                                              				@if (date('U', strtotime($question->finished_at))< date("U"))
-                                             					<span class="label label-rounded label-danger">Closed</span></td>
+                                             					<span class="label label-rounded label-inverse">Closed</span></td>
                                              					<td><span class="label label-rounded label-danger"><i class="mdi mdi-emoticon-dead" style="margin-right:5px;"></i><b>No more time</b></span></td>
                                                                 <td></td>
                                                  			@else
@@ -140,10 +140,10 @@
                                              			@endif
                                              		@else
                                              			@if (date('U', strtotime($question->finished_at))< date("U"))
-                                             					<span class="label label-rounded label-danger">Closed</span></td><td></td><td></td></tr>
+                                             					<span class="label label-rounded label-inverse">Closed</span></td><td></td><td></td></tr>
 
                                                  		@else
-                                                    			<span class="label label-rounded label-success">Open</span></td>
+                                                    			<span class="label label-rounded label-success">Open</span></td><td></td><td></td></tr>
                                              			@endif
                                         
                                                      

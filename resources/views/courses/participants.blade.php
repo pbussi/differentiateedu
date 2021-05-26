@@ -56,7 +56,7 @@
                                             @foreach ($course->students as $student)
                                             <tr>
                                                 <td class="user-image" width="5%">
-                                                    <img src="{{url("file/download/{$student->picture->hash}")}}" class="rounded-circle" width="30" />
+                                                    <img src="{{url("file/download/{$student->picture->hash}")}}" class="rounded-circle" width="30" /></td>
                                                 <td style="padding:0px;vertical-align: middle;">
                                                     <div class="d-flex align-items-center">
                                                             <h4 class="m-b-0 font-16">{{$student->user->name}}</h4>

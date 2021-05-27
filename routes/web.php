@@ -38,6 +38,7 @@ Route::post('teacherQuestion/edit/{id}', 'TeacherQuestionController@edit')->name
 Route::get('teacherQuestion/show/{question_id}', 'TeacherQuestionController@show')->name('teacherQuestion.show')->middleware("auth");
 Route::any('teacherQuestion/create/{course_id}','TeacherQuestionController@create')->middleware("auth");
 Route::get('teacherQuestion/delete/{question_id}', 'TeacherQuestionController@delete')->middleware("auth");
+Route::post('teacherQuestion/recordAudio/{id}', 'TeacherQuestionController@recordAudio')->name('teacherQuestion.recordAudio')->middleware("auth");
 
 Route::get('teacherQuestion/studentsResults/{question_id}', 'TeacherQuestionController@studentsResults')->middleware("auth")->name('studentsResults');
 Route::any('teacherQuestion/correct/{answer_id}', 'TeacherQuestionController@correct')->middleware("auth");

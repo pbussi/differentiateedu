@@ -21,9 +21,10 @@ class CreateQuestionsTable extends Migration
             $table->dateTime('finished_at')->nullable();
             $table->bigInteger('picture_id')->nullable();
             $table->foreign('picture_id')->references('id')->on('files');
-           
             $table->bigInteger('course_id')->unsigned();
             $table->foreign('course_id')->references('id')->on('courses');
+            $table->bigInteger('audio_id')->nullable();
+            $table->foreign('audio_id')->references('id')->on('files');
 
         });
     }

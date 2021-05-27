@@ -21,9 +21,7 @@ class Question extends Model
         'description',
         'finished_at'
     ];
-    public function category(){
-    	return $this->belongsTo(Category::class);
-    }
+    
 
      public function course(){
     	return $this->belongsTo(Course::class);
@@ -38,6 +36,10 @@ class Question extends Model
     }
 
     public function picture(){
+        return $this->belongsTo(File::class);
+    }
+
+      public function audio(){
         return $this->belongsTo(File::class);
     }
 

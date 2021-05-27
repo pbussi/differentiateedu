@@ -214,6 +214,22 @@ class TeacherQuestionController extends Controller
 
      }
 
+     public function recordAudio(Request $request,$id){
+        $question=Question::findorFail($id);
+        if ($request->audio){
+         $path=$request->audio->store('material');
+         $file=File::create([ 'type' => $request->audio->getMimeType(),
+                              'hash'=>uniqid(),                
+                              'filename'=>$path,
+                              'original_filename'=>$request->audio->getClientOriginalName()]);
+    
+         $file->save();
+         $question->audio_id=$file->id;
+        }
+       $question->save();
+
+     }
+
       /**
      * Display the specified resource.
      *

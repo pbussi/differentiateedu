@@ -51,15 +51,32 @@
                                     <textarea rows="3" name=description class="form-control form-control-line" required>{{$question->description}}</textarea>
                                 </div>
                             </div>
+                            
+                              <i class="m-r-10 mdi mdi-microphone"></i><input type="button" class="btn" id=audio value="Click and Hold to record Audio" style="margin-bottom:15px;"/>
+                            @if ($question->audio)
+                            <figure>
+                                <figcaption>Listen Teacher Instructions:</figcaption>
+                                <audio
+                                    controls
+                                    src="{{url("file/download/{$question->audio->hash}")}}" >
+                                        Your browser does not support the
+                                        <code>audio</code> element.
+                                </audio>
+                            </figure>
+                            @endif
+                      
                             <div class="form-group row">
                                
                                 <div class="col-md-4">
                                    <label class="col-md-8">Related image</label>
-                                    <img class="card-img-top" src="{{url("file/download/{$question->picture->hash}")}}"alt="question image" width="200px" height="200px">
+                                    <img class="card-img-top" src="{{url("file/download/{$question->picture->hash}")}}" alt="question image" width="200px" height="200px">
                                     <input type="file" name=picture class="form-control form-control-line">
                                 </div>
                                 
                             </div>
+
+
+                          
                             <div class="form-group row">
                                 <div class="col-lg-3 col-xlg-3 col-md-5">
                                     <label>Created at</label>
@@ -199,4 +216,86 @@
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
+
+
+
+         <script type="text/javascript">
+            window.nonce = "jhgfjgfjh"
+            // courtesy https://medium.com/@bryanjenningz/how-to-record-and-play-audio-in-javascript-faa1b2b3e49b
+            const recordAudio = () => {
+              return new Promise(async resolve => {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const mediaRecorder = new MediaRecorder(stream);
+                const audioChunks = [];
+
+                mediaRecorder.addEventListener("dataavailable", event => {
+                  audioChunks.push(event.data);
+                });
+
+                const start = () => mediaRecorder.start();
+
+                const stop = () =>
+                  new Promise(resolve => {
+                    mediaRecorder.addEventListener("stop", () => {
+                      const audioBlob = new Blob(audioChunks);
+                      const audioUrl = URL.createObjectURL(audioBlob);
+                      const audio = new Audio(audioUrl);
+                      const play = () => audio.play();
+                      resolve({ audioBlob, audioUrl, play });
+                    });
+
+                    mediaRecorder.stop();
+                  });
+
+                resolve({ start, stop });
+              });
+            }
+
+            /* simple timeout */
+            const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+
+            /* init */
+            (async () => {
+                const btn = document.getElementById("audio");
+                const recorder = await recordAudio();
+                let audio; // filled in end cb
+
+                const recStart = e => {
+                    recorder.start();
+                    btn.initialValue = btn.value;
+                    btn.value = "recording...";
+                }
+                const recEnd = async e => {
+                    btn.value = btn.initialValue;
+                    audio = await recorder.stop();
+                    audio.play();
+                    uploadAudio(audio.audioBlob);
+                }
+
+                const uploadAudio = a => {
+                    if (a.size > (10 * Math.pow(1024, 2))) {
+                        alert("Too big; could not upload");
+                        return;
+                    }
+                    const f = new FormData();
+                    f.append("_token", window.nonce);
+                    f.append("audio", a);
+
+                    fetch("{{route('teacherQuestion.recordAudio',$question->id)}}", {
+                        method: "POST",
+                        body: f
+                    })
+                    .then(_ => {
+                        window.location.href="{{route('teacherQuestion.show',$question->id)}}"
+                    });
+                }
+
+
+                btn.addEventListener("mousedown", recStart);
+                btn.addEventListener("touchstart", recStart);
+                window.addEventListener("mouseup", recEnd);
+                window.addEventListener("touchend", recEnd);
+            })();
+        </script>
+
     @endsection

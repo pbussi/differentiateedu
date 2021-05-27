@@ -39,9 +39,20 @@
                                     <h6 class="card-subtitle" style="text-align: justify;">                                      
                                            {{$question->description}}
                                     </h6>
-                                    
+                                     @if ($question->audio)
+                                        <figure>
+                                        <figcaption>Listen Teacher Instructions:</figcaption>
+                                            <audio
+                                                controls
+                                                src="{{url("file/download/{$question->audio->hash}")}}" >
+                                                    Your browser does not support the
+                                                    <code>audio</code> element.
+                                            </audio>
+                                        </figure>
+                                    @endif
+                      
                                 </center>
-                            </div>
+                     </div>
                 </div>
             </div>
        </div>

@@ -16,7 +16,7 @@ class CourseController extends Controller
 
 public function list()
 {
-	$courses=Auth::user()->teachers[0]->courses->sortByDesc('created_at');
+	$courses=Auth::user()->teachers[0]->courses->sortByDesc('updated_at');
   return view('courses.list',['courses'=>$courses]);
 }
 
@@ -43,7 +43,7 @@ public function list()
     	    
        }else{
 
-       		$course->picture_id=1;
+       		$course->picture_id=2;
        }
        $course->fill($input)->save();
        return redirect()->route('mycourses')->with('success','Class has been created successfully');

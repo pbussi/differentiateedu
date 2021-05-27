@@ -50,13 +50,47 @@ class UserController extends Controller
 
         	 $student=Student::create([
         	 	'user_id'=>$newUser->id,
-                'picture_id'=>7,
+                'picture_id'=>1,
         	 ]);
 
         	 //FALTA ENVIAR EMAIL DE INVITACION
         	 return redirect()->route('inviteStudent')->with('success','Student has been envited!');
 
  		}
+    }
+
+
+    public function inviteTeacher(Request $request){
+        if (!(Auth::user()->teacher()))
+              return redirect()->route('/home')->with('error','Invalid access!');
+        if ($request->isMethod('GET'))
+            return view('user/inviteTeacher');
+        else
+        {
+           
+            $email=$request->email;
+            $user = User::where('email', $email)->first();
+            if ($user) {
+                return redirect()->route('inviteTeacher')->with('error','User already exist!');
+            }
+             $newUser=User::create([
+            'name'     => $email,
+            'email'    => $email,
+             'provider'=>'google',
+             'provider_id'=>0]);
+
+             //creo el new user como estudiante
+
+             $teacher=Teacher::create([
+                'user_id'=>$newUser->id,
+                'school_id'=>Auth::user()->teachers[0]->school_id,
+                'picture_id'=>1,
+             ]);
+
+             //FALTA ENVIAR EMAIL DE INVITACION
+             return redirect()->route('inviteTeacher')->with('success','Teacher has been envited!');
+
+        }
     }
 
     public function updatePicture(Request $request, $id){

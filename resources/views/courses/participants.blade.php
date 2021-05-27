@@ -39,7 +39,7 @@
                     
                     <div class="card-body">
                         <div class="form-group row">
-                            <h5><label class="col-md-12"><img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/std3.png")}}>Participants</label></h5>
+                            <h5><label class="col-md-12"><img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/std3.png")}}>Class Participants</label></h5>
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table">

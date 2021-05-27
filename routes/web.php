@@ -62,6 +62,7 @@ Route::get('mycourses/getallparticipants','CourseController@participantsGetAll')
 Route::get('mycourses/addStudentToClass/{course_id}/{student_id}','CourseController@addStudentToClass')->middleware("auth");
 Route::get('mycourses/DeleteStudentFromClass/{course_id}/{student_id}','CourseController@DeleteStudentFromClass')->middleware("auth");
 
+Route::any('inviteTeacher','UserController@inviteTeacher')->name('inviteTeacher')->middleware("auth");
 
 Route::any('inviteStudent','UserController@inviteStudent')->name('inviteStudent')->middleware("auth");
 

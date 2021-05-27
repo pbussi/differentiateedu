@@ -65,7 +65,7 @@
                                  <div class="col-sm-4" >
                                     <label>Filename</label>
                                     <input type="file" name=picture id="image" 
-                                    class="form-control form-control-line" onchange="CheckDimension()">
+                                    class="form-control form-control-line" onchange="CheckDimension()" accept="image/*">
                                 </div>
                              </div>
                              <div class="form-group row">

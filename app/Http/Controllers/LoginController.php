@@ -47,9 +47,15 @@ class LoginController extends Controller
         Auth::login($authUser, true);
         if (count(Auth::user()->teachers)>0)
             return redirect($this->redirectToTeacher);
-        else{
-            return redirect($this->redirectToStudent);
-        }
+        else
+            if (count(Auth::user()->students)>0)
+                return redirect($this->redirectToStudent);
+            else 
+                return redirect('/login');
+
+            
+        
+
     }
     
     /**

@@ -59,7 +59,14 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" 
+                      @if (Auth::user()->students->count()>0)
+                            href="{{route('myactivities')}}">
+                      @endif
+                        @if (Auth::user()->teachers->count()>0)
+                             href="{{route('mycourses')}}">
+
+                        @endif
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->

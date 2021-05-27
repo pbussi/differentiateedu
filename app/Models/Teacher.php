@@ -8,13 +8,15 @@ use App\Models\File;
 class Teacher extends Model
 {
     use HasFactory;
-
+protected $fillable = [
+        'user_id',
+        'picture_id',
+        'school_id',
+        ];
 
     public function user(){
     	return $this->belongsTo(User::class); 
     }
-
-    
 
         public function picture()
     {
@@ -23,6 +25,10 @@ class Teacher extends Model
 
      public function courses(){
         return $this->hasMany(Course::class); 
+    }
+
+     public function school(){
+        return $this->belongsTo(School::class); 
     }
 
 }

@@ -91,6 +91,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($choice->files as $file)
+
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
@@ -102,9 +103,13 @@
                                                 </td>
 
                                                 <td style="align-content:center;"> 
+                                                     @if (substr($file->type,0,5)=='image')
+                                                         <img src={{url("file/download/{$file->hash}")}} width="250px" />
+                                                     @else
+                                                         <img src={{asset("assets/images/fileIcons/")}}/{{pathinfo($file->filename,PATHINFO_EXTENSION)}}-icon-48x48.png />
+                                                    @endif
+                                                      </td>
 
-                                                    <img src={{asset("assets/images/fileIcons/")}}/{{pathinfo($file->filename,PATHINFO_EXTENSION)}}-icon-48x48.png />
-                                                    </td>
                                                  <td> 
                                                     <a href="{{url("file/deleteFile/{$file->hash}")}}" class="btn btn-danger text-white">Delete</a></td>   
                                             </tr>

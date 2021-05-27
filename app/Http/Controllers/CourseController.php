@@ -16,7 +16,7 @@ class CourseController extends Controller
 
 public function list()
 {
-	$courses=Auth::user()->teachers[0]->courses->sortBy('created_at');
+	$courses=Auth::user()->teachers[0]->courses->sortByDesc('created_at');
   return view('courses.list',['courses'=>$courses]);
 }
 

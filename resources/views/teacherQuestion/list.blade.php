@@ -102,7 +102,7 @@
                                     @foreach ($questions as $question)
 
                                          <tr>
-                                            <td>
+                                            <td width="40%">
                                                 <div class="d-flex align-items-center">
                                                         <h4 class="m-b-0 font-16"><a href={{url("teacherQuestion/show/{$question->id}")}}>{{$question->title}}</a></h4>
                                                 </div>

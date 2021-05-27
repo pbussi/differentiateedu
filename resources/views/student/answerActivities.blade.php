@@ -60,7 +60,7 @@
 
                                                 <td style="align-content:center;"> 
                                                 	@if (substr($file->type,0,5)=="image") 
-                                                		<img src="{{url("file/download/{$file->hash}")}}" width="200px">
+                                                		<img src="{{url("file/download/{$file->hash}")}}" width="250px">
                                                 	@else
 
                                                     <img src={{asset("assets/images/fileIcons/")}}/{{pathinfo($file->filename,PATHINFO_EXTENSION)}}-icon-48x48.png />

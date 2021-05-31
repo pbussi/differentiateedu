@@ -44,13 +44,24 @@
                 <div class="card-body">
                   <div class="row">
                     <!-- column -->
-                    <div class="col-12">
+                    <div class="col-9">
                         <div class="card" style="background-image: url('{{url("file/download/{$course->picture->hash}")}}');   background-repeat:no-repeat; background-size:cover;height: 100%; width: 100%">  
                             <div class="card-body" style="height: 200px;">
 
                             </div>
                         </div>
-                    </div>    
+                    </div> 
+                     <div class="col-3">
+                        <div class="card">  
+                            <div class="card-body">
+                               {{url("mycourses/addParticipantToClass/{$course->code}")}}
+                                   <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={{url("addParticipantToClass/{$course->code}")}}">
+
+                               
+
+                            </div>
+                        </div>
+                    </div>       
                  </div>
                 </div>
             </div>
@@ -157,10 +168,8 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center">
-                All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-                    href="https://www.wrappixel.com">WrapPixel</a>.
-            </footer>
+    @include('footer')
+
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

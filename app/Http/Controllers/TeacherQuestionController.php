@@ -138,7 +138,11 @@ class TeacherQuestionController extends Controller
         $course_id=$question->course_id;
 
         $choices = Choice::where('question_id', $question->id)->get();
-        foreach ($choices as $choice) {     
+        foreach ($choices as $choice) {  
+          if($choice->answers->count()>0)
+                return redirect()->route('teacherQuestion.list',$course_id)->with('error','Cannot be deleted!'); 
+        }
+        foreach ($choices as $choice) {        
             foreach($choice->files as $file){   
                 ChoiceFile::destroy($file->pivot->id);
                 File::destroy($file->pivot->file_id);
@@ -146,6 +150,7 @@ class TeacherQuestionController extends Controller
             }
             Choice::destroy($choice->id);
         }
+       
         Question::destroy($question->id);
         return redirect()->route('teacherQuestion.list',$course_id)->with('success','Question has been deleted!');
     }

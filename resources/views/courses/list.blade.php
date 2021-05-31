@@ -73,6 +73,8 @@
                                 <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded" style="margin-right:5px;">Edit </span></a>
                                 <a href="{{url("mycourses/participants/{$course->id}")}}" ><span class="label label-warning label-rounded" style="margin-right:5px;">Manage Students </span></a>
                                  <span class="label label-megna label-rounded">{{count($course->students)}} Participants</span></a>
+                                    <a href="{{url("mycourses/delete/{$course->id}")}}" ><i class="mdi mdi-delete" style="margin-left:10px; "></i> </a>
+
                             </div>
 
                         </div>
@@ -158,10 +160,8 @@
     <!-- ============================================================== -->
     <!-- footer -->
     <!-- ============================================================== -->
-    <footer class="footer text-center">
-        All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-        href="https://www.wrappixel.com">WrapPixel</a>.
-    </footer>
+    @include('footer')
+
     <!-- ============================================================== -->
     <!-- End footer -->
     <!-- ============================================================== -->

@@ -6,7 +6,7 @@
     <!-- ============================================================== -->
     <div class="page-breadcrumb">
         <div class="row align-items-center">
-            <div class="col-5">
+            <div class="col-12">
                 <h4 class="page-title">Add/Edit Choice</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
@@ -255,10 +255,8 @@
     <!-- ============================================================== -->
     <!-- footer -->
     <!-- ============================================================== -->
-    <footer class="footer text-center">
-        All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-        href="https://www.wrappixel.com">WrapPixel</a>.
-    </footer>
+    @include('footer')
+
     <!-- ============================================================== -->
     <!-- End footer -->
     <!-- ============================================================== -->

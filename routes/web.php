@@ -56,17 +56,20 @@ Route::post('user/updatePicture/{userid}','UserController@updatePicture')->middl
 Route::get('mycourses','CourseController@list')->name('mycourses')->middleware("auth");
 Route::get('mycourses/create','CourseController@create')->middleware("auth");
 Route::post('mycourses/create','CourseController@save')->middleware("auth");
+
+Route::get('mycourses/delete/{id}','CourseController@delete')->middleware("auth");
 Route::get('mycourses/participants/{course_id}','CourseController@participants')->name('participants')->middleware("auth");
 Route::any('mycourses/edit/{id}','CourseController@edit')->middleware("auth");
 Route::get('mycourses/getallparticipants','CourseController@participantsGetAll')->middleware("auth");
 Route::get('mycourses/addStudentToClass/{course_id}/{student_id}','CourseController@addStudentToClass')->middleware("auth");
 Route::get('mycourses/DeleteStudentFromClass/{course_id}/{student_id}','CourseController@DeleteStudentFromClass')->middleware("auth");
+Route::get('mycourses/addParticipantToClass/{code}','CourseController@addParticipantToClass');
 
 Route::any('inviteTeacher','UserController@inviteTeacher')->name('inviteTeacher')->middleware("auth");
 
 Route::any('inviteStudent','UserController@inviteStudent')->name('inviteStudent')->middleware("auth");
 
-Route::get('myactivities','StudentController@list')->name('myactivites')->middleware("auth");
+Route::get('myactivities','StudentController@list')->name('myactivities')->middleware("auth");
 Route::get('myactivities/pendingQuestions','StudentController@pendingWork')->name('pendingQuestions')->middleware("auth");
 Route::get('myactivities/questionList/{course_id}','StudentController@questionList')->middleware("auth")->name("myactivities.questionList");
 Route::get('myactivities/questionShow/{question_id}','StudentController@questionShow')->name('questionShow')->middleware("auth");

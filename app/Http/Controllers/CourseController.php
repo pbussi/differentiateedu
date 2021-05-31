@@ -8,7 +8,7 @@ use App\Models\Student;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CourseStudent;
-
+use App\Models\Question;
 
 
 class CourseController extends Controller
@@ -126,6 +126,14 @@ public function list()
     }
 
 
+    public function addParticipantToClass(Request $request, $code){
+
+      if ($request->isMethod('GET'))
+         return view('courses/addParticipantToClass');
+    }
+
+
+
     public function DeleteStudentFromClass($course_id,$student_id){
         $student=CourseStudent::where('student_id',$student_id)->
                        where('course_id',$course_id)->first();
@@ -134,6 +142,21 @@ public function list()
           return redirect()->route('participants',['course_id'=>$course_id])->with('success','Student has been delete from class');  
         }
 
+    }
+
+
+    public function delete($id){
+
+        $question=Question::where('course_id',"=",$id)->get();
+        if (count($question)>0)
+          return redirect()->route('mycourses')->with('error','Class can not be delete');  
+        else
+          {
+            Course::find($id)->delete();
+            return redirect()->route('mycourses')->with('success','Class has been deleted ');  
+
+          }
+    
     }
 
 

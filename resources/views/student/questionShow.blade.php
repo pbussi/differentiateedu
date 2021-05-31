@@ -6,7 +6,7 @@
     <!-- ============================================================== -->
     <div class="page-breadcrumb">
         <div class="row align-items-center">
-            <div class="col-5">
+            <div class="col-12">
                 <h4 class="page-title">{{$question->title}}</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
@@ -29,7 +29,7 @@
     <div class="container-fluid">
           <div class="row">
             <!-- column -->
-            <div class="col-10">
+            <div class="col-12">
                 <div class="card">
                     
                     <div class="card-body">
@@ -61,7 +61,7 @@
         @if ($selectedChoice==NULL)
             <div class="row">
        
-                <div class="col-lg-10">
+                <div class="col-12">
                         <div class="card">
                           
                               <div class="card-body">
@@ -100,7 +100,7 @@
         @else
 
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-l2">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Your selected answer was: </h4>
@@ -147,10 +147,7 @@
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
-        <footer class="footer text-center">
-            All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-            href="https://www.wrappixel.com">WrapPixel</a>.
-        </footer>
+        @include('footer')
         <!-- ============================================================== -->
         <!-- End footer -->
         <!-- ============================================================== -->

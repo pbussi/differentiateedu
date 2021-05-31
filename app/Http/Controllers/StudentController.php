@@ -193,9 +193,10 @@ class StudentController extends Controller
               $pendingQuestions[]=array('question'=>$question,'answer'=>$answer);
            }
         }
+      }
        return view('student/pendingQuestions',['pendingQuestions'=>$pendingQuestions,'student'=>$student]);
 
-      }
+      
     }
      
 }

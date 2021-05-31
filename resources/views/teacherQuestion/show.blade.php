@@ -64,18 +64,20 @@
                                 </audio>
                             </figure>
                             @endif
-                      
+                           
                             <div class="form-group row">
                                
                                 <div class="col-md-4">
                                    <label class="col-md-8">Related image</label>
+                                    @if ($question->picture)
                                     <img class="card-img-top" src="{{url("file/download/{$question->picture->hash}")}}" alt="question image" width="200px" height="200px">
+                                     @endif
                                     <input type="file" name=picture class="form-control form-control-line">
                                 </div>
                                 
                             </div>
 
-
+                           
                           
                             <div class="form-group row">
                                 <div class="col-lg-3 col-xlg-3 col-md-5">
@@ -205,10 +207,8 @@
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
-        <footer class="footer text-center">
-            All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-            href="https://www.wrappixel.com">WrapPixel</a>.
-        </footer>
+    @include('footer')
+
         <!-- ============================================================== -->
         <!-- End footer -->
         <!-- ============================================================== -->

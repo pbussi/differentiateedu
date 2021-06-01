@@ -69,6 +69,7 @@
                             
                                 <p class="card-text"><small class="text-muted"> updated at: {{date('m-d-Y H:i', strtotime($course->updated_at))}}</small></p>
                             </div></a>
+                             <div align=right style="margin-right:10px;margin-bottom:10px; margin:top:0px;"> <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={{url("QRInvitation/{$course->code}")}}" width="20%"> </div>
                             <div class="card-footer" style="text-align: right;">
                                 <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded" style="margin-right:5px;">Edit </span></a>
                                 <a href="{{url("mycourses/participants/{$course->id}")}}" ><span class="label label-warning label-rounded" style="margin-right:5px;">Manage Students </span></a>

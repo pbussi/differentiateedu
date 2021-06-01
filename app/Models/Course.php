@@ -16,6 +16,7 @@ class Course extends Model
         'picture_id',
         'due_date',
         'teacher_id',
+        'code',
 
     ];
 

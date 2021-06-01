@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Socialite;
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\Session;
   
 class LoginController extends Controller
 {
@@ -45,10 +46,19 @@ class LoginController extends Controller
         $user = Socialite::driver($provider)->user();
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
+        if (Session::has('redirectTo')){
+
+            $redirectTo=Session::get('redirectTo');
+
+             Session::forget('redirectTo');
+             
+            return redirect($redirectTo);
+        }
         if (count(Auth::user()->teachers)>0)
             return redirect($this->redirectToTeacher);
         else
             if (count(Auth::user()->students)>0)
+
                 return redirect($this->redirectToStudent);
             else 
                 return redirect('/login');
@@ -86,6 +96,8 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
     Auth::logout();
+    
+
 
     $request->session()->invalidate();
 

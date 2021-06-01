@@ -60,10 +60,11 @@ Route::post('mycourses/create','CourseController@save')->middleware("auth");
 Route::get('mycourses/delete/{id}','CourseController@delete')->middleware("auth");
 Route::get('mycourses/participants/{course_id}','CourseController@participants')->name('participants')->middleware("auth");
 Route::any('mycourses/edit/{id}','CourseController@edit')->middleware("auth");
+Route::get('mycourses/studentResults/{course_id}','CourseController@studentsResults')->middleware("auth");
 Route::get('mycourses/getallparticipants','CourseController@participantsGetAll')->middleware("auth");
 Route::get('mycourses/addStudentToClass/{course_id}/{student_id}','CourseController@addStudentToClass')->middleware("auth");
 Route::get('mycourses/DeleteStudentFromClass/{course_id}/{student_id}','CourseController@DeleteStudentFromClass')->middleware("auth");
-Route::get('mycourses/addParticipantToClass/{code}','CourseController@addParticipantToClass');
+Route::get('QRInvitation/{code}','CourseController@QRInvitation')->middleware("auth");
 
 Route::any('inviteTeacher','UserController@inviteTeacher')->name('inviteTeacher')->middleware("auth");
 

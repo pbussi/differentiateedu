@@ -25,6 +25,7 @@ class CreateCoursesTable extends Migration
             $table->datetime('due_date')->nulable();
             $table->bigInteger('teacher_id')->unsigned();
             $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->char('code',6)->nullable();
 
         });
     }

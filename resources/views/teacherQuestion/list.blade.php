@@ -25,6 +25,7 @@
                     </div>
                       <div class="col-4">
                         <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("teacherQuestion/create/{$course->id}")}}'">New Question</button>
+                         <button type="button" class="btn btn-outline-warning" onClick="window.location='{{url("mycourses/studentResults/{$course->id}")}}'">Students Results</button>
                     </div>
                    	
                 </div>
@@ -40,33 +41,30 @@
                 <!-- ============================================================== -->
                 <!-- Table -->
                 <!-- ============================================================== -->
-            <div class="card">
-                <div class="card-body">
-                  <div class="row">
+         <div class="container-fluid">    
+           
+                <div class="card">
+                    <div class="card-body">
+                      <div class="row">
                     <!-- column -->
-                    <div class="col-9">
-                        <div class="card" style="background-image: url('{{url("file/download/{$course->picture->hash}")}}');   background-repeat:no-repeat; background-size:cover;height: 100%; width: 100%">  
-                            <div class="card-body" style="height: 200px;">
-
+                         <div class="col-8">
+                             <div class="card" style="background-image: url('{{url("file/download/{$course->picture->hash}")}}');   background-repeat:no-repeat; background-size:cover;height: 100%; width: 100%">  
                             </div>
-                        </div>
-                    </div> 
-                     <div class="col-3">
-                        <div class="card">  
+                         </div> 
+                        <div class="col-4">
                             <div class="card-body">
-                               {{url("mycourses/addParticipantToClass/{$course->code}")}}
-                                   <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={{url("addParticipantToClass/{$course->code}")}}">
-
-                               
+                              
+                                   <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={{url("QRInvitation/{$course->code}")}}"> 
+                                  <span class="small">{{url("QRInvitation/{$course->code}")}}</span>
 
                             </div>
-                        </div>
-                    </div>       
-                 </div>
+                        
+                        </div>       
+                    </div>
+                
                 </div>
             </div>
-
-            <div class="container-fluid">
+           
                 <div class="row">
                     <!-- column -->
                     <div class="col-12">
@@ -113,7 +111,7 @@
                                     @foreach ($questions as $question)
 
                                          <tr>
-                                            <td width="40%">
+                                            <td width="30%">
                                                 <div class="d-flex align-items-center">
                                                         <h4 class="m-b-0 font-16"><a href={{url("teacherQuestion/show/{$question->id}")}}>{{$question->title}}</a></h4>
                                                 </div>

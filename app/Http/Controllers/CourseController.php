@@ -9,7 +9,7 @@ use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CourseStudent;
 use App\Models\Question;
-
+use App\Models\Answer;
 
 class CourseController extends Controller
 {
@@ -31,6 +31,8 @@ public function list()
        $input=$request->all();unset($input['_token']);
        $course->status="0"; //open Class
        $course->teacher_id=Auth::user()->teachers[0]->id;
+       $course->code=generate_string(6);
+
        if ($request->picture){
        	 $path=$request->picture->store('material');
        	 $file=File::create([ 'type' => $request->picture->getMimeType(),
@@ -126,11 +128,31 @@ public function list()
     }
 
 
-    public function addParticipantToClass(Request $request, $code){
+    public function QRInvitation($code){
 
-      if ($request->isMethod('GET'))
-         return view('courses/addParticipantToClass');
+      $course=Course::where('code',"=",$code)->get();
+
+      $student=Auth::user()->students[0];
+     
+      if (count($course)>0){
+        $course=$course[0];
+
+        $courseStudent=CourseStudent::where('course_id',"=",$course->id)->where('student_id',"=",$student->id)->get();
+        if (count($courseStudent)==0){
+          $courseStudent=CourseStudent::create(['student_id'=>$student->id, 
+                                'course_id'=>$course->id]);
+          $courseStudent->save();
+        }
+           return redirect()->route('myactivities.questionList',['course_id'=>$course->id])->with('success','Welcome to class');
+
+      }else{
+        //invalid QR code
+         return redirect()->route('myactivities')->with('error','Invalid QR Code');
+      }
     }
+
+
+     
 
 
 
@@ -159,5 +181,40 @@ public function list()
     
     }
 
+public function studentsResults($course_id){
 
+  $course=Course::find($course_id);
+  //$courseStudent=CourseStudent::where('course_id',"=",$course->id)->get();
+
+  foreach ($course->students as $student){
+    foreach ($course->questions as $question){
+        echo "estudiante <B>".$student->user->name."</b><br>";
+        echo "Question ".$question->title."<br>"; 
+        $answer=Answer::where('question_id',"=",$question->id)->where('student_id',"=",$student->id)->get();
+        if (count($answer)>0){
+          echo "respuesta Grade: ".$answer[0]->mark."<br>";
+           echo "respuesta Teacher Notes: ".$answer[0]->teacher_notes."<br>";
+        }else{
+
+          echo "Not presented <br>";
+        }
+    }
+  }
+
+}
+ 
+
+
+}
+
+function generate_string($strength = 16) {
+  $input = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $input_length = strlen($input);
+    $random_string = '';
+    for($i = 0; $i < $strength; $i++) {
+        $random_character = $input[mt_rand(0, $input_length - 1)];
+        $random_string .= $random_character;
+    }
+ 
+    return $random_string;
 }

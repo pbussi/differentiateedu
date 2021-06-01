@@ -56,7 +56,14 @@
                               
                                 <!-- Comment Row -->
                                 <div class="d-flex flex-row comment-row m-t-0">
-                                  <div class="p-2"><img src="{{url("file/download/{$item['question']->picture->hash}")}}" class="rounded-square" width="120" /></div>
+                                  <div class="p-2">
+                                    @if ($item['question']->picture)
+                                        <img src="{{url("file/download/{$item['question']->picture->hash}")}}" class="rounded-square" width="120" /></div>
+                                    @else 
+                                        <!-- question without image, show class image -->
+                                         <img src="{{url("file/download/{$item['question']->course->picture->hash}")}}" class="rounded-square" width="120" /></div>
+                                    @endif
+
                                     <div class="comment-text w-100">
                                         <h6>  
                                         	@if ($item['answer']) 

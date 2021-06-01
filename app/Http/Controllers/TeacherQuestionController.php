@@ -54,6 +54,8 @@ class TeacherQuestionController extends Controller
     
                 $file->save();
                 $question->picture_id=$file->id;
+             }else{
+                $question->picture_id=$course->picture_id;
              }
            
              $question->fill($input)->save();

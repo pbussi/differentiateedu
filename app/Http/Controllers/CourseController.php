@@ -174,12 +174,18 @@ public function list()
           return redirect()->route('mycourses')->with('error','Class can not be delete');  
         else
           {
+            $students=CourseStudent::where('course_id',"=",$id)->get();
+            foreach ($students as $student){
+              $student->delete();
+            }
+
             Course::find($id)->delete();
             return redirect()->route('mycourses')->with('success','Class has been deleted ');  
+           }
 
           }
     
-    }
+    
 
 public function studentsResults($course_id){
   header("Content-type: text/csv");

@@ -207,19 +207,28 @@ class TeacherQuestionController extends Controller
 
         $answer=Answer::find($answer_id);
          if ($request->isMethod('GET')){
-            $answer=Answer::find($answer_id);
             return view('teacherQuestion/correct',['answer'=>$answer]);
          }
          
          if ($request->isMethod('POST')){
+            
             $answer->review_date=date('Y-m-d H:i:s');
-            $answer->mark=$request->mark;
-            $answer->teacher_notes=$request->teacher_notes;
-            $answer->save();
-            return redirect()->route('studentsResults',$answer->question_id)->with('success','Correction done!');
-         }
+            if (is_numeric($request->mark)){
+                 $answer->mark=$request->mark;
+            }else{
+                    if ($request->mark!=NULL)
+                        return redirect()->route('teacherQuestion.correct',$answer->id)->with('error','If present, grade must be a number');
+                }
 
+            
+        }
+
+        $answer->teacher_notes=$request->teacher_notes;
+        $answer->save();
+        return redirect()->route('studentsResults',$answer->question_id)->with('success','Correction done!');
      }
+
+     
 
      public function recordAudio(Request $request,$id){
         $question=Question::findorFail($id);

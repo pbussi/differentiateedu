@@ -101,12 +101,12 @@
 						<div class="form-group row">
 							<div class="col-md-12">
 								<div class="card-body">
-									<form class="form-horizontal form-material mx-2"  method="post" action="" id="teacherForm"enctype="multipart/form-data" >
+									<form class="form-horizontal form-material mx-2"  method="post" action="" id="teacherForm">
 										@csrf
 										<div class="form-group row">
-											<label class="col-md-12">Obtained Score</label>
+											<label class="col-md-12">Grade</label>
 											<div class="col-md-4">
-												<input type="text" name=mark class="form-control form-control-line" required>
+												<input type="number" name=mark id=mark class="form-control form-control-line">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -154,5 +154,14 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>}
+@endsection
+
+
+@section('internal_scripts')
+<script>
+		$(document).ready(function(){
+    $('#mark').numeric("."); 
+});
+</script>
 	@endsection

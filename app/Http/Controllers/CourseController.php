@@ -215,12 +215,40 @@ public function studentsResults($course_id){
     }
   }
   die();
-
 }
  
+ public function studentsQuestionResults($course_id,$question_id){
+  header("Content-type: text/csv");
+  header("Content-Disposition: attachment; filename="."results.csv");
+  header("Pragma: no-cache");
+  header("Expires: 0");
 
-
+  $course=Course::find($course_id);
+  $question=Question::find($question_id);
+  $myarray=array('Student Name','Question','Grade','Teacher Notes','Observations');
+  echo arrayToCsv($myarray);
+  foreach ($course->students as $student){
+  
+        $row=array();
+        $row['name']=$student->user->name;
+        $row['question']=$question->title; 
+        $answer=Answer::where('question_id',"=",$question->id)->where('student_id',"=",$student->id)->get();
+        if (count($answer)>0){
+          $row['grade']=$answer[0]->mark;
+          $row['teacherNotes']=$answer[0]->teacher_notes;
+          $row['observations']="";
+        }else{
+          $row['grade']="";
+          $row['teacherNotes']="";
+          $row['observations']="Not presented";
+        }
+        echo arrayToCsv($row);
+  }
+   die();
+  }
+ 
 }
+
 
 function generate_string($strength = 16) {
   $input = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

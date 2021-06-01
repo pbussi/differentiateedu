@@ -182,24 +182,33 @@ public function list()
     }
 
 public function studentsResults($course_id){
+  header("Content-type: text/csv");
+  header("Content-Disposition: attachment; filename="."results.csv");
+  header("Pragma: no-cache");
+  header("Expires: 0");
 
   $course=Course::find($course_id);
-  //$courseStudent=CourseStudent::where('course_id',"=",$course->id)->get();
-
+  $myarray=array('Student Name','Question','Grade','Teacher Notes','Observations');
+  echo arrayToCsv($myarray);
   foreach ($course->students as $student){
     foreach ($course->questions as $question){
-        echo "estudiante <B>".$student->user->name."</b><br>";
-        echo "Question ".$question->title."<br>"; 
+        $row=array();
+        $row['name']=$student->user->name;
+         $row['question']=$question->title; 
         $answer=Answer::where('question_id',"=",$question->id)->where('student_id',"=",$student->id)->get();
         if (count($answer)>0){
-          echo "respuesta Grade: ".$answer[0]->mark."<br>";
-           echo "respuesta Teacher Notes: ".$answer[0]->teacher_notes."<br>";
+          $row['grade']=$answer[0]->mark;
+          $row['teacherNotes']=$answer[0]->teacher_notes;
+          $row['observations']="";
         }else{
-
-          echo "Not presented <br>";
+          $row['grade']="";
+          $row['teacherNotes']="";
+          $row['observations']="Not presented";
         }
+        echo arrayToCsv($row);
     }
   }
+  die();
 
 }
  
@@ -217,4 +226,33 @@ function generate_string($strength = 16) {
     }
  
     return $random_string;
+}
+
+function arrayToCsv( array &$fields, $delimiter = ';', $enclosure = '"', $encloseAll = false, $nullToMysqlNull = false ) {
+    $delimiter_esc = preg_quote($delimiter, '/');
+    $enclosure_esc = preg_quote($enclosure, '/');
+
+    $output = '';
+    foreach ( $fields as $key => $field ) {
+        if ($field === null && $nullToMysqlNull) {
+            $output = '';
+            continue;
+        }
+
+        // Enclose fields containing $delimiter, $enclosure or whitespace
+        if ( $encloseAll || preg_match( "/(?:${delimiter_esc}|${enclosure_esc}|\s)/", $field ) ) {
+            //$output .= $key;
+            //$output .= $delimiter;
+            $output .= $enclosure . str_replace($enclosure, $enclosure . $enclosure,     $field) . $enclosure;
+            $output .= $delimiter;
+        }
+        else {
+            //$output .= $key;
+            //$output .= $delimiter;
+            $output .= $field;
+            $output .= $delimiter;
+        }
+    }
+  $output .= PHP_EOL;
+    return  $output ;
 }

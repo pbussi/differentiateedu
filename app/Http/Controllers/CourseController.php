@@ -113,6 +113,7 @@ public function list()
 
     public function AddStudentToClass($course_id,$student_id){
       $mailto=Student::find($student_id);
+
  
       $student=CourseStudent::where('student_id',$student_id)->
                      where('course_id',$course_id)->get();
@@ -120,10 +121,11 @@ public function list()
            return redirect()->route('participants',['course_id'=>$course_id])->with('error','Student is already participating in the class');
       
       }
+        $course=Course::find($course_id);
          $newStudent=CourseStudent::create([ 'course_id' => $course_id,
                                              'student_id'=>$student_id]);
         $newStudent->save();
-        mail($mailto->user->email, "You have been added to a class", "vamos a probarlo primero\n puede ser?");
+        mail($mailto->user->email, "You have been added to ".$course->title." class", "Check ".env("APP_NAME")." at ".env("APP_URL")." for more details./n");
          return redirect()->route('participants',['course_id'=>$course_id])->with('success','Student added. Mail sent to: '.$mailto->user->email);
     }
 
@@ -131,6 +133,9 @@ public function list()
     public function QRInvitation($code){
 
       $course=Course::where('code',"=",$code)->get();
+
+      if (count(Auth::user()->teachers)>0)
+        return redirect()->route('mycourses')->with('error','You are a teacher.  Invitation Code is only for students');
 
       $student=Auth::user()->students[0];
      

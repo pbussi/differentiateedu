@@ -178,6 +178,7 @@
     <script src={{asset("dist/js/pages/dashboards/dashboard1.js")}}></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src={{asset("dist/js/jquery.numeric.js")}}></script>
+    <script src={{asset("dist/js/clipboard.min.js")}}></script>
 
 
     @yield('internal_scripts')

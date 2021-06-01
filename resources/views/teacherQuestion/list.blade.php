@@ -47,15 +47,20 @@
                     <div class="card-body">
                       <div class="row">
                     <!-- column -->
-                         <div class="col-8">
+                         <div class="col-12 col-sm-8">
                              <div class="card" style="background-image: url('{{url("file/download/{$course->picture->hash}")}}');   background-repeat:no-repeat; background-size:cover;height: 100%; width: 100%">  
                             </div>
                          </div> 
-                        <div class="col-4">
+                        <div class="col-12 col-sm-4">
                             <div class="card-body">
                               
                                    <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={{url("QRInvitation/{$course->code}")}}"> 
-                                  <span class="small">{{url("QRInvitation/{$course->code}")}}</span>
+                                   <input id="foo" value="{{url("QRInvitation/{$course->code}")}}">
+                                    <!-- Trigger -->
+                                    <button class="btn" data-clipboard-target="#foo">
+                                        <img src={{asset("assets/images/clippy.svg")}} alt="Copy to clipboard" width=13>
+                                    </button>
+                              
 
                             </div>
                         
@@ -179,5 +184,9 @@
 
 
 @endsection
-        
-
+  
+@section('internal_scripts')
+<script>      
+    new ClipboardJS('.btn');
+</script>
+    @endsection

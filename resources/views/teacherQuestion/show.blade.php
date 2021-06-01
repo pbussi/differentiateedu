@@ -85,13 +85,12 @@
                                     <input type="text"
                                     class="form-control form-control-line" value="{{$question->created_at->format('m-d-Y')}}" readonly>
                                 </div>
-                                <div class="col-lg-3 col-xlg-3 col-md-5">
+                                <div class="col-lg-3 col-xlg-3 col-md-5 col-8">
                                     <label>Due at</label>
                                     <input type="date"
                                     class="form-control form-control-line" name=finished_at value="{{date('Y-m-d', strtotime($question->finished_at))}}">
                                 </div>
-                                <div class="col-lg-3 col-xlg-3 col-md-5">
-                                    
+                                <div class="col-lg-3 col-xlg-3 col-md-5 col-4">
                                     <input class="btn btn-success text-white" type=submit value=Save style="position:absolute; bottom: 0px;">
                                 </div>
                             </div>
@@ -168,24 +167,24 @@
                                     <div class="form-group row">
                                         @csrf
                                         
-                                        <div class="col-sm-4" >
+                                        <div class="col-sm-4 col-4" >
                                             <label  >Title</label>
                                             <input type="text" name=title
                                             class="form-control form-control-line">
                                         </div>
-                                         <div class="col-sm-5" >
+                                         <div class="col-sm-5 col-3" >
                                             <label>Description</label>
                                             <input type="text" name=description
                                             class="form-control form-control-line">
                                             
                                         </div>
                                         
-                                        <div class="col-sm-1" >
+                                        <div class="col-sm-1 col-2" >
                                             <label>Order</label>
                                             <input type="text" name=order
                                             class="form-control form-control-line" maxlength="5" required>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-2 col-1">
                                             <button class="btn btn-success text-white" style="position:absolute; bottom: 0px;" type="submit">Add new</button>
                                         </div>
                                         

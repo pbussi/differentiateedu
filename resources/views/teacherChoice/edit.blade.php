@@ -177,7 +177,7 @@
                             <div class="form-group row">
                                  @csrf
                             
-                                <div class="col-sm-5" >
+                                <div class="col-sm-5 col-12" >
                                     <label  >Title</label>
                                     <input type="text" name=title
                                     class="form-control form-control-line" maxlength="100" required>
@@ -185,12 +185,12 @@
                                 </div>
                                 
                                
-                                 <div class="col-sm-4" >
+                                 <div class="col-sm-4 col-6" >
                                     <label>Filename</label>
                                     <input type="file" name=file
                                     class="form-control form-control-line">
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-2 col-4">
                                     <button class="btn btn-success text-white" style="position:absolute; bottom: 0px;" type="submit">Add new</button>
                                 </div>
                                 
@@ -222,12 +222,12 @@
                             <div class="form-group row">
                                  @csrf
                             
-                                <div class="col-sm-5" >
+                                <div class="col-sm-5 col-12" >
                                     <label  >Url</label>
                                     <input type="text" name=url
                                     class="form-control form-control-line" required>       
                                 </div>
-                                  <div class="col-sm-4" >
+                                  <div class="col-sm-4 col-6" >
                                  <label>Choose type:</label>
                                  <select id="type" name="type" class="form-select shadow-none" style="width: 100%">
                                     <option value="youtube">Youtube Video</option>
@@ -235,7 +235,7 @@
                                 </select> 
                             </div>
                                
-                                <div class="col-sm-2">
+                                <div class="col-sm-2 col-4">
                                     <button class="btn btn-success text-white" style="position:absolute; bottom: 0px;" type="submit">Add new</button>
                                 </div>
                                 

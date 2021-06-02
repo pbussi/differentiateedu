@@ -3,7 +3,7 @@
 <div class="page-wrapper">
   <div class="page-breadcrumb">
         <div class="row align-items-center">
-            <div class="col-5">
+            <div class="col-12">
                 <h4 class="page-title">{{$question->title}}</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
@@ -115,54 +115,35 @@
 
         <div class="row">
             <!-- column -->
-            <div class="col-6">
+            <div class="col-sm-6 col-12">
                   <div class="card">
                     <div class="card-body">
                             <h4 class="card-title"><img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/upload-icon.png")}}>My work </h4>
                             <h6 class="card-subtitle">Here you can attach your work, complete all the activities and upload them.  Finally, send your work to teacher for correction</h6>
                  
                          <div class="form-group row">   
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-12">
                             	  <form class="form-horizontal form-material mx-2"  method="post" action="{{url("answerActivities/uploadWork/{$answer->id}")}}"  enctype="multipart/form-data">
 
-                            <div class="form-group row" align="top">
+                                <div class="form-group row" align="top">
                                  @csrf
-                            	<input type="hidden" name="question_id" value={{$answer->question_id}}>
+                            	   <input type="hidden" name="question_id" value={{$answer->question_id}}>
                               
-                                 <div class="col-sm-9" >
+                                 <div class="col-sm-9 col-8" >
                                     <label>Filename</label>
                                     <input type="file" name=file
                                     class="form-control form-control-line">
                                 </div>
-                                <div class="col-sm-2" >
+                                <div class="col-sm-2 col-4" >
                                     <button class="btn btn-light " style="position:absolute; bottom: 5px;" type="submit"><i class="mdi mdi-upload"></i>Upload</button>
                                 </div>
                                 
-                            </div>
-                            </form>
+                              </div>
+                              </form>
                                 
                             </div>
                         </div>
-						<form class="form-horizontal form-material mx-2"  method="post" action="" id="formmywork">
-                         <div class="form-group row">   
-  
-                                 @csrf
-                               <div class="col-sm-12 col-md-11">
-                                    <label class="">My Notes</label>
-                                    <textarea rows="3" name=notes class="form-control form-control-line" >{{$answer->notes}}</textarea>
-                               </div>
-                                <div class="col-sm-6 col-md-6" style="padding-top:10px;" >
-                                    <a class="btn btn-warning text-white" onclick="window.location='{{url("myactivities/saveDraft/{$answer->id}")}}'">Save my Draft</a>
-                                    </div>
-
-                               <div class="col-sm-6 col-md-6" style="padding-top:10px;" >
-                                    <a class="btn btn-success text-white" onclick="$('#confirmModal').modal('toggle')">Submit my work</a>
-                                </div>
-                                   
-
-
-                        </div>
-  					   </form>
+						      
                           
                       </div>  
 
@@ -171,7 +152,7 @@
                 </div>
      
 
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
                 <div class="card">
                     <div class="card-body">
                     	   <h4 class="card-title"> <img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/my-files.png")}}>My briefcase </h4>
@@ -189,6 +170,34 @@
                     </div>
                  </div>
             </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                      <form class="form-horizontal form-material mx-2"  method="post" action="" id="formmywork">
+                         <div class="form-group row">   
+  
+                                 @csrf
+                               <div class="col-12 col-sm-12 col-md-12">
+                                    <label class="">My Notes</label>
+                                    <textarea rows="3" name=notes class="form-control form-control-line" >{{$answer->notes}}</textarea>
+                               </div>
+                                <div class="col-sm-10 col-md-10" style="padding-top:10px;" >
+                                    <a class="btn btn-warning text-white" onclick="window.location='{{url("myactivities/saveDraft/{$answer->id}")}}'">Save my Draft</a>
+                                    </div>
+
+                               <div class="col-12 col-sm-2 col-md-2" style="padding-top:10px;" >
+                                    <a class="btn btn-success text-white" onclick="$('#confirmModal').modal('toggle')">Submit my work</a>
+                                </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
           </div>
 
 

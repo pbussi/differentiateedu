@@ -27,6 +27,7 @@ public function list()
 
     public function save(Request $request)
     {
+       $this->validate($request, ['name'=>'required','description_heading'=>'required','description'=>'required','due_date'=>'required']);
        $course=new Course();
        $input=$request->all();unset($input['_token']);
        $course->status="0"; //open Class

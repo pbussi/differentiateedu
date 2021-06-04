@@ -22,7 +22,7 @@ class CreateCoursesTable extends Migration
             $table->char('status',1);
             $table->bigInteger('picture_id')->unsigned()->nullable();
             $table->foreign('picture_id')->references('id')->on('files');
-            $table->datetime('due_date')->nulable();
+            $table->datetime('due_date')->nullable();
             $table->bigInteger('teacher_id')->unsigned();
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->char('code',6)->nullable();

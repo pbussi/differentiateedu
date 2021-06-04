@@ -10,6 +10,8 @@ use Auth;
 use Socialite;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Models\Student;
+
 
 
 class LoginController extends Controller
@@ -115,12 +117,20 @@ class LoginController extends Controller
             $authUser->save();
             return $authUser;
         }
-        return User::create([
+        $newUser= User::create([
             'name'     => $user->name,
             'email'    => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id
         ]);
+        $newUser->save();
+        $student=Student::create([
+                'user_id'=>$newUser->id,
+                'picture_id'=>1,
+                ]);
+        $student->save();
+        return $newUser;
+
     }
 
     public function logout(Request $request)

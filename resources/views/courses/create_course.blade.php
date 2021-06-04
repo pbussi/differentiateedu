@@ -43,21 +43,21 @@
                                 <label class="col-md-12">Title</label>
                                 <div class="col-md-8">
                                     <input type="text" name='name'
-                                    class="form-control form-control-line" required>
+                                    class="form-control form-control-line">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-8" >
                                     <label  >Description Heading</label>
                                     <input type="text" name=description_heading
-                                    class="form-control form-control-line" required>   
+                                    class="form-control form-control-line">   
                                </div>
                             </div>  
                             <div class="form-group row">
                                 <div class="col-sm-8" >
                                     <label>Description</label>
                                     <input type="textarea" name=description
-                                    class="form-control form-control-line" required>   
+                                    class="form-control form-control-line">   
                                </div>
                             </div>  
 
@@ -72,7 +72,7 @@
                                  <div class="col-sm-4" >
                                     <label>Due Date</label>
                                     <input type="date" name=due_date
-                                    class="form-control form-control-line" required>
+                                    class="form-control form-control-line">
                                       <span id='width' hidden></span><br/>
                                <span id='height' hidden></span>
                                 </div>
@@ -83,6 +83,14 @@
                             <div><hr></div>
 
                         </form>
+                        @if (count($errors)>0)
+                    
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-danger">{{$error}}</label></li>
+                            @endforeach
+                        </ul>
+                        @endif
                     </div>
                 </div>
             </div>

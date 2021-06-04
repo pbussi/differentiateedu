@@ -10,12 +10,12 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
-                    <div class="col-8">
+                    <div class="col-12">
                         <h4 class="page-title">{{$course->name}}</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                 
                                      <li class="breadcrumb-item"><a href={{url("myactivities")}}>Student Dashboard</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">{{$course->name}}</li>
                                 </ol>

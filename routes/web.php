@@ -22,10 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth')->name('home');
 
-Route::any('login', 'LoginController@index')->name('login');
-Route::get('logout', 'LoginController@logout')->name('logout');
-Route::get('login/{provider}', 'LoginController@redirectToProvider');
-Route::get('{provider}/callback', 'LoginController@handleProviderCallback');
+Route::any('login', 'Auth\LoginController@index')->name('login');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('/home', function () {
 
 
@@ -88,3 +88,11 @@ Route::get('myactivities/viewMyWork/{answer_id}','StudentController@viewMyWork')
 Route::get('link/deleteLink/{id}', 'LinkController@deleteLink')->middleware("auth");
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -19,7 +19,14 @@ use App\Models\Teacher;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+     if (count(Auth::user()->teachers)>0)
+            return redirect("/mycourses");
+        else
+            if (count(Auth::user()->students)>0)
+
+                return redirect("/myactivities");
+            else 
+                return redirect('/login');
 })->middleware('auth')->name('home');
 
 Route::any('login', 'Auth\LoginController@index')->name('login');
@@ -93,6 +100,3 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

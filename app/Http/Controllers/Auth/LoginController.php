@@ -46,6 +46,7 @@ class LoginController extends Controller
 
      protected $redirectToTeacher = '/mycourses';
     protected $redirectToStudent = '/myactivities';
+
   
     /**
      * Call the view

@@ -129,6 +129,12 @@
                                                         <div class="">
                                                             <h4 class="m-b-0 font-16"><a href="{{url("teacherChoice/edit/{$choice->id}")}}">{{$choice->title}}</a></h4>
                                                         </div>
+                                                      {{--
+                                                         <div class="">
+                                                            <h4 class="m-b-0 font-16"><a href="javascript:ventanaSecundaria('{{url("teacherChoice/edit/{$choice->id}")}}')">{{$choice->title}}</a></h4>
+                                                        </div>
+                                                    --}}
+
                                                     </div>
                                                 </td>
                                                 <td style="align-content:center;">{{$choice->order}}</td>
@@ -136,6 +142,7 @@
                                                     <a href="{{url("teacherChoice/delete/{$choice->id}")}}" class="btn btn-danger text-white">Delete</a></td>
                                                     
                                                 </tr>
+                                             
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -148,7 +155,7 @@
                 </div>
             </div>
    
-        
+
         <!-- ============================================================== -->
         <!-- Table -->
         <!-- ============================================================== -->
@@ -172,6 +179,7 @@
                                             <input type="text" name=title
                                             class="form-control form-control-line">
                                         </div>
+
                                          <div class="col-sm-5 col-3" >
                                             <label>Description</label>
                                             <input type="text" name=description
@@ -296,5 +304,12 @@
                 window.addEventListener("touchend", recEnd);
             })();
         </script>
+<!--
+        <script> 
+            function ventanaSecundaria (URL){ 
+               window.open(URL,"ventana1","width=800,height=400,scrollbars=YES,top=150, left=400") 
+            } 
+        </script>
+-->
 
     @endsection

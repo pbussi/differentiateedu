@@ -52,21 +52,22 @@
                             </div>
                             <div class="comment-widgets scrollable">
                                 @foreach ($pendingQuestions as $item)
-                                	
-                              
                                 <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row m-t-0">
-                                  <div class="p-2">
-                                    @if ($item['question']->picture)
-                                        <img src="{{url("file/download/{$item['question']->picture->hash}")}}" class="rounded-square" width="120" /></div>
-                                    @else 
+                                    <div class="d-flex flex-row comment-row m-t-0">
+                                        <div class="p-2">
+                                            @if ($item['question']->picture)
+                                            <img src="{{url("file/download/{$item['question']->picture->hash}")}}" class="rounded-square" width="120" />
+                                        </div>
+                                            @else 
                                         <!-- question without image, show class image -->
                                          <img src="{{url("file/download/{$item['question']->course->picture->hash}")}}" class="rounded-square" width="120" /></div>
-                                    @endif
+                                            @endif
 
                                     <div class="comment-text w-100">
                                         <h6>  
-                                        	@if ($item['answer']) 
+                                        @if ($item['question']->course->status==0 and date('U', strtotime($item['question']->finished_at))> date("U"))
+                                        	
+                                            @if ($item['answer']) 
                                         		 <a href="{{route('answerActivities',$item['answer']->choice_id)}}">
                                             @else 
 
@@ -74,31 +75,55 @@
                                             @endif
 
                                         	{{$item['question']->title}}</a></h6>
-                                        <span class="m-b-15 d-block">{{$item['question']->description}}</span>
-                                        <div class="comment-footer">
-                                        	<p class="text-muted float-end">Course: {{$item['question']->course->name}}</p> 
-                                            <span class="text-muted float-end">Posted at: {{$item['question']->created_at}}</span> 
+                                            <span class="m-b-15 d-block">{{$item['question']->description}}</span>
+                                             <div class="comment-footer">
+                                        	   <p class="text-muted float-end">Course: {{$item['question']->course->name}}</p> 
+                                                <span class="text-muted float-end">Posted at: {{$item['question']->created_at}}</span> 
                                               
                                                  
                                             @if ($item['answer'])
                                             <span
-                                                class="label label-primary">In progress...</span> <span
+                                                class="label label-primary label-rounded">In progress...</span> <span
                                                 class="action-icons">
                                                 <a href="{{route('answerActivities',$item['answer']->choice_id)}}"><i class="ti-pencil-alt"></i></a>
                                               
                                             </span>
                                             @else
                                              <span
-                                                class="label label-danger">Not Started</span> <span
+                                                class="label label-warning label-rounded">Not Started</span> <span
                                                 class="action-icons">
                                                 <a href="{{route('questionShow',$item['question']->id)}}"><i class="ti-pencil-alt"></i></a>
                                             
                                             </span>
                                             @endif
+                                    @else
+                                     <!-- NO HAY MAS TIEMPO PARA TRABAJAR -->
+                                            <h6>{{$item['question']->title}}</h6>
+                                            <span class="m-b-15 d-block">{{$item['question']->description}}</span>
+                                             <div class="comment-footer">
+                                               <p class="text-muted float-end">Course: {{$item['question']->course->name}}</p> 
+                                                <span class="text-muted float-end">Posted at: {{$item['question']->created_at}}</span> 
+                                                 
+                                            @if ($item['answer'])
+                                            <span class="label label-primary label-rounded">In progress...</span>
+                                            <span class="label label-danger">Time is OVER</span>
+                                              
+                                          
+                                            @else
+                                             <span class="label label-warning label-rounded">Not Started</span>
+                                             <span class="label label-danger">Time is OVER</span>
+                                            
+                                       
+                                            @endif
+
+
+
+                                @endif
 
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Comment Row -->
                                 @endforeach
                                 

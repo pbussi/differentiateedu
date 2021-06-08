@@ -110,7 +110,7 @@
 											</div>
 										</div>
 										<div class="form-group row">
-											<label class="col-md-12">Notes for Student</label>
+											<label class="col-md-12">Feedback for Student</label>
 											<div class="col-md-8">
 												<textarea rows="3" name=teacher_notes class="form-control form-control-line"></textarea>
 											</div>

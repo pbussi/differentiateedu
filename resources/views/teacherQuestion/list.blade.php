@@ -16,7 +16,6 @@
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
                                      <li class="breadcrumb-item"><a href={{url("mycourses")}}>Teacher Dashboard</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">{{$course->name}}</li>
                                 </ol>
@@ -54,7 +53,7 @@
                         <div class="col-12 col-sm-4">
                             <div class="card-body">
                               
-                                   <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={{url("QRInvitation/{$course->code}")}}"> 
+                                   <img src="https://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={{url("QRInvitation/{$course->code}")}}"> 
                                    <input id="foo" value="{{url("QRInvitation/{$course->code}")}}">
                                     <!-- Trigger -->
                                     <button class="btn" data-clipboard-target="#foo">

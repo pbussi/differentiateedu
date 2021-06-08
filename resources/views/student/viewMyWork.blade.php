@@ -139,7 +139,7 @@
                 @endif
                 <span class="label label-info label-rounded">Your mark </span>
                 <h2 class="card-title" style="padding-top:10px;  padding-left:50px;">{{$answer->mark}}</h2>
-                <span class="label label-info  label-rounded">Teacher Notes </span>
+                <span class="label label-info  label-rounded">Feedback </span>
                 <h6 class="card-title" style="padding-top:15px; padding-left:50px;">{{$answer->teacher_notes}}</h6>
               </div>
             </div>

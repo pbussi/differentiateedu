@@ -27,8 +27,9 @@
 
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
                            <span class="small"><a href="{{route('register')}}">New User? Register Now!</a></span>
-                        <hr class="my-4"> <button class="btn btn-lg btn-google btn-block text-uppercase" onclick=window.location.href="{{url("login/google")}}"><i class="fab fa-google mr-2"></i> Sign in with Google</button> 
+                      
                     </form>
+                      <hr class="my-4"> <button class="btn btn-lg btn-google btn-block text-uppercase" onclick=window.location.href="{{url("login/google")}}"><i class="fab fa-google mr-2"></i> Sign in with Google</button> 
                     @if (count($errors)>0)
                         @foreach ($errors->all() as $error)
                             {{$error}}

@@ -35,5 +35,10 @@ class Choice extends Model
     }
 
 
+    public function audio(){
+        return $this->belongsTo(File::class);
+    }
+
+
 }
 

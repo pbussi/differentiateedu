@@ -115,19 +115,32 @@
                                     <table class="table v-middle table-hover">
                                         <thead>
                                             <tr class="bg-light">
-                                                <th class="border-top-0"></th>
-                                                <th class="border-top-0">Order</th>
-                                                <th class="border-top-0" ></th>
+                                                <th class="border-top-0">Order #</th>
+                                                 <th class="border-top-0" width=60%>Choice Title</th>
+                                                <th class="border-top-0" >Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($question->choices->sortBy('order') as $choice)
                                             <tr>
+                                                 <td style="align-content:center;">{{$choice->order}}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         
-                                                        <div class="">
-                                                            <h4 class="m-b-0 font-16"><a href="{{url("teacherChoice/edit/{$choice->id}")}}">{{$choice->title}}</a></h4>
+                                                        <div class="col-md-12">
+                                                           @if ($choice->audio)
+                                                            <figure>
+                               
+                                                             <audio id="player" src="{{url("file/download/{$choice->audio->hash}")}}"></audio>
+
+                                                            <button class="btn " style="float:left; margin-top:10px; margin-right: 5px;" onclick="document.getElementById('player').play()"><i class="fa fa-play-circle"></i></button> 
+ 
+
+                                                            @endif
+
+
+                                                            </figure>
+                                                            <h4 class="m-b-0 font-16"><a href="{{url("teacherChoice/editContent/{$choice->id}")}}">{{$choice->title}}</a></h4>
                                                         </div>
                                                       {{--
                                                          <div class="">
@@ -137,9 +150,16 @@
 
                                                     </div>
                                                 </td>
-                                                <td style="align-content:center;">{{$choice->order}}</td>
-                                                <td> <a href="{{url("teacherChoice/edit/{$choice->id}")}}" class="btn btn-warning text-white">Edit</a>
-                                                    <a href="{{url("teacherChoice/delete/{$choice->id}")}}" class="btn btn-danger text-white">Delete</a></td>
+                                               
+                                                <td> 
+                                                   
+                                                    <!-- Botón en HTML (lanza el modal en Bootstrap) -->
+                                                    <a href="#editModal" role="button" class="label label-rounded label-info" data-toggle="modal" 
+                                                    onclick="$('#linkframe').attr('src','{{url("teacherChoice/edit/{$choice->id}")}}');$('#editModal').modal('toggle')">Edit Choice</a>
+
+                                                     <a href="{{url("teacherChoice/editContent/{$choice->id}")}}" class="label label-rounded label-primary">Add Content</a>
+
+                                                    <a href="{{url("teacherChoice/delete/{$choice->id}")}}" class="label label-rounded label-danger">Delete</a></td>
                                                     
                                                 </tr>
                                              
@@ -207,7 +227,20 @@
             </div>
         </div>
         
-        
+    <div id="editModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#editModal').modal('toggle')">&times;</button>
+               
+            </div>
+            <div class="modal-body"  id="modalbody" style="padding:0; margin:0;">
+                          <iframe id="linkframe" src="about:blank" style="display:block; width:100%; height:80vh;" frameBorder="0"></iframe>
+                    </div>
+
+        </div>
+    </div>
+</div>    
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
         <!-- ============================================================== -->
@@ -224,6 +257,13 @@
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
 
+
+
+     
+
+    @endsection
+
+@section('internal_scripts')
 
 
          <script type="text/javascript">
@@ -304,12 +344,12 @@
                 window.addEventListener("touchend", recEnd);
             })();
         </script>
-<!--
-        <script> 
-            function ventanaSecundaria (URL){ 
-               window.open(URL,"ventana1","width=800,height=400,scrollbars=YES,top=150, left=400") 
-            } 
-        </script>
--->
 
+
+
+<script>      
+    $('#editModal').on('hidden.bs.modal', function (e) {
+   window.location.reload();
+    })
+</script>
     @endsection

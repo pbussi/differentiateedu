@@ -58,6 +58,8 @@ Route::post('teacherChoice/add/{id}', 'TeacherChoiceController@add')->middleware
 Route::post('teacherChoice/addFile/{id}', 'TeacherChoiceController@addFile')->middleware("auth");
 Route::post('teacherChoice/addLink/{id}', 'TeacherChoiceController@addLink')->middleware("auth");
 Route::any('teacherChoice/edit/{id}', 'TeacherChoiceController@edit')->name('teacherChoice.edit')->middleware("auth");
+Route::any('teacherChoice/editContent/{id}', 'TeacherChoiceController@editContent')->name('teacherChoice.editContent')->middleware("auth");
+Route::post('teacherChoice/recordAudio/{id}', 'TeacherChoiceController@recordAudio')->name('teacherChoice.recordAudio')->middleware("auth");
 Route::get('file/download/{hash}', 'FileController@download')->middleware("auth");
 Route::get('file/deleteFile/{hash}', 'FileController@deleteFile')->middleware("auth");
 Route::any('userProfile/{id}','UserController@profile')->middleware("auth")->name('userProfile');
@@ -73,6 +75,7 @@ Route::any('mycourses/edit/{id}','CourseController@edit')->middleware("auth");
 Route::get('mycourses/studentResults/{course_id}','CourseController@studentsResults')->middleware("auth");
 Route::get('mycourses/getallparticipants','CourseController@participantsGetAll')->middleware("auth");
 Route::get('mycourses/addStudentToClass/{course_id}/{student_id}','CourseController@addStudentToClass')->middleware("auth");
+Route::get('mycourses/clone/{course_id}','CourseController@clone')->middleware("auth");
 Route::get('mycourses/DeleteStudentFromClass/{course_id}/{student_id}','CourseController@DeleteStudentFromClass')->middleware("auth");
 Route::get('QRInvitation/{code}','CourseController@QRInvitation')->middleware("auth");
 

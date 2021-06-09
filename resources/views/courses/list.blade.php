@@ -73,7 +73,7 @@
                             <div class="card-footer" style="text-align: right;">
                                 <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded" style="margin-right:5px;">Edit </span></a>
                                 <a href="{{url("mycourses/participants/{$course->id}")}}" ><span class="label label-warning label-rounded" style="margin-right:5px;">Manage Students </span></a>
-                                 <span class="label label-megna label-rounded">{{count($course->students)}} Participants</span></a>
+                                 <span class="label label-megna">{{count($course->students)}} Participants</span></a>
                                     <a href="{{url("mycourses/delete/{$course->id}")}}" ><i class="mdi mdi-delete" style="margin-left:10px; "></i> </a>
 
                             </div>
@@ -139,7 +139,9 @@
                         </div>
                           <div class="card-footer" style="text-align: right;">
                                 <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded">Edit </span></a>
-                                <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-warning label-rounded">Delete </span></a>
+                                <a href="{{url("mycourses/clone/{$course->id}")}}" ><span class="label label-success label-rounded">Clone </span></a>
+                                <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded">Archive </span></a>
+                                <a href="{{url("mycourses/delete/{$course->id}")}}" ><span class="label label-warning label-rounded">Delete </span></a>
                             </div>
                     </div>  
                     @endif 

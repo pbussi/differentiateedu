@@ -12,7 +12,7 @@ use App\Models\ChoiceFile;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Answer;
-
+use App\Models\Link;
 use App\Models\Student;
 
   
@@ -145,11 +145,15 @@ class TeacherQuestionController extends Controller
                 return redirect()->route('teacherQuestion.list',$course_id)->with('error','Cannot be deleted!'); 
         }
         foreach ($choices as $choice) {        
-            foreach($choice->files as $file){   
-                ChoiceFile::destroy($file->pivot->id);
-                File::destroy($file->pivot->file_id);
-                Storage::delete($file->filename);
+                $choiceFiles=ChoiceFile::where('choice_id',$choice->id)->get();
+                foreach ($choiceFiles as $cfile){
+                    $cfile->delete();
+                }
+            
+            foreach ($choice->links as $link){
+                $link->delete();
             }
+
             Choice::destroy($choice->id);
         }
        

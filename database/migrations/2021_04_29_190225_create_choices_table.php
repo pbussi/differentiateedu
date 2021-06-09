@@ -17,6 +17,8 @@ class CreateChoicesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->text('title');
+            $table->bigInteger('audio_id')->unsigned()->nullable();
+            $table->foreign('audio_id')->references('id')->on('files');
             $table->char('order',5);
             $table->text('description')->nullable();
             $table->bigInteger('question_id')->unsigned();

@@ -128,8 +128,7 @@
                                              <td>{{date('m-d-Y', strtotime($question->finished_at))}}</td>
                                              <td align="center">@if (date('U', strtotime($question->finished_at))< date("U"))
                                              		<span class="label label-rounded label-inverse">Closed</span>
-                                                 @else
-                                                    <span class="label label-rounded label-success">Open</span>
+                                               
                                              	@endif
                                              </td>
                                              @php $color="grey"; @endphp

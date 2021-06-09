@@ -15,68 +15,7 @@ class TeacherChoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
+   
     public function delete($id)
     {
         $choice=Choice::find($id);
@@ -84,12 +23,20 @@ class TeacherChoiceController extends Controller
         //si tiene respuestas no se puede borrar
          if($choice->answers->count()>0)
                 return redirect()->route('teacherQuestion.show',$question_id)->with('error','Choice has been selected by a student. Cannot be deleted!');
-        foreach($choice->files as $file){
-            $file->pivot->delete();
+        
+        //borro solo del pivot, no borro el file ya que puede ser usado al clonar una clase.
+        $cfiles=ChoiceFile::where('choice_id',$choice->id)->get();
+        foreach($cfiles as $cfile){
+            $cfile->delete();
+        }
+        $links=Link::where('choice_id',$choice->id)->get();
+        foreach ($links as $link){
+            $link->delete();
         }
         $choice->delete();
         return redirect()->route('teacherQuestion.show',$question_id)->with('success','Choice has been deleted!');
     }
+    
 
     public function add(Request $request, $id)
     {
@@ -114,11 +61,21 @@ class TeacherChoiceController extends Controller
             $choice->order=$request->order;
             $choice->description=$request->description;
             $choice->save();
-             return redirect()->route('teacherQuestion.show',$choice->question_id)->with('success','Choice has been updated!');
+             return redirect()->route('teacherChoice.edit',$choice->id)->with('success','Choice has been updated!');
 
-        }
+            }
+    }
+
+      public function editContent(Request $request, $id){
+         $choice=Choice::findorFail($id);
+        if ($request->isMethod('GET')){
+            return view('teacherChoice/editContent',['choice'=>$choice]);
+         }
+       
 
     }
+
+  
 
     public function addFile(Request $request,$id)
     {
@@ -174,6 +131,23 @@ class TeacherChoiceController extends Controller
    
 
     }
+
+
+     public function recordAudio(Request $request,$id){
+        $choice=Choice::findorFail($id);
+        if ($request->audio){
+         $path=$request->audio->store('material');
+         $file=File::create([ 'type' => $request->audio->getMimeType(),
+                              'hash'=>uniqid(),                
+                              'filename'=>$path,
+                              'original_filename'=>$request->audio->getClientOriginalName()]);
+    
+         $file->save();
+         $choice->audio_id=$file->id;
+        }
+       $choice->save();
+
+     }
 
 
 }

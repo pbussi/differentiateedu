@@ -132,7 +132,7 @@
                                              					<td><span class="label label-rounded label-danger"><i class="mdi mdi-emoticon-dead" style="margin-right:5px;"></i><b>No more time</b></span></td>
                                                                 <td></td>
                                                  			@else
-                                                    			<span class="label label-rounded label-success">Open</span></td>
+                                                    			</td>
                                                     			<td><span class="label label-rounded label-warning"><i class="m-r-10 mdi mdi-wrench" style="margin-right:5px;"></i><B>Working on it!</B></span></td>
                                                                 <td><p class="card-text"><small class="text-muted"> Last Update: {{date('m-d-Y H:i:s', strtotime($answer->updated_at))}}</small></p>
                                              				@endif
@@ -143,7 +143,7 @@
                                              					<span class="label label-rounded label-inverse">Closed</span></td><td></td><td></td></tr>
 
                                                  		@else
-                                                    			<span class="label label-rounded label-success">Open</span></td><td></td><td></td></tr>
+                                                    			</td><td></td><td></td></tr>
                                              			@endif
                                         
                                                      

@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\CourseStudent;
 use App\Models\Question;
 use App\Models\Answer;
+use App\Models\Choice;
+use App\Models\ChoiceFile;
+use App\Models\Link;
 
 class CourseController extends Controller
 {
@@ -177,7 +180,7 @@ public function list()
 
         $question=Question::where('course_id',"=",$id)->get();
         if (count($question)>0)
-          return redirect()->route('mycourses')->with('error','Class can not be delete');  
+          return redirect()->route('mycourses')->with('error','Class can not be deleted');  
         else
           {
             $students=CourseStudent::where('course_id',"=",$id)->get();
@@ -223,6 +226,7 @@ public function studentsResults($course_id){
   die();
 }
  
+
  public function studentsQuestionResults($course_id,$question_id){
   header("Content-type: text/csv");
   header("Content-Disposition: attachment; filename="."results.csv");
@@ -252,6 +256,64 @@ public function studentsResults($course_id){
   }
    die();
   }
+
+
+public function clone($course_id){
+  $course=Course::find($course_id);
+  $newCourse=new Course();
+  $newCourse->name="Copy of ".$course->name;
+  $newCourse->description_heading=$course->description_heading;
+  $newCourse->description=$course->description;
+  $newCourse->status=0;
+  $newCourse->picture_id=$course->picture_id;
+  $newCourse->due_date=date("Y-m-d",strtotime($course->due_date."+ 6 month")); 
+  $newCourse->teacher_id=$course->teacher_id;
+  $newCourse->save();
+  //copy of questions
+  $questions=Question::where('course_id',$course_id)->get();
+  foreach ($questions as $question){
+       $newQ=new Question();
+       $newQ->title=$question->title;
+       $newQ->description=$question->description;
+       $newQ->finished_at=date("Y-m-d",strtotime($question->finished_at."+ 3 month"));
+       $newQ->picture_id=$question->picture_id;
+       $newQ->course_id=$newCourse->id;
+       $newQ->save();
+       //copy of question choices
+       $choices=Choice::where('question_id',$question->id)->get();
+       foreach ($choices as $choice){
+          $newChoice=new Choice();
+          $newChoice->title=$choice->title;
+          $newChoice->order=$choice->order;
+          $newChoice->description=$choice->description; 
+          $newChoice->question_id=$newQ->id;
+          $newChoice->save();
+          $choice_files=ChoiceFile::where('choice_id', $choice->id)->get();
+          foreach($choice_files as $cfile){
+            $newCF=new ChoiceFile();
+            $newCF->file_id=$cfile->file_id;
+            $newCF->description=$cfile->description;
+            $newCF->choice_id=$newChoice->id;
+            $newCF->save();
+          }
+          $links=Link::where('choice_id',$choice->id)->get();
+          foreach($links as $link){
+            $newLink=new Link();
+            $newLink->url=$link->url;
+            $newLink->type=$link->type;
+            $newLink->choice_id=$newChoice->id;
+            $newLink->save();
+          }
+
+
+       }
+
+
+
+  }
+  return redirect()->route('mycourses')->with('success','Class has been cloned successfully');
+}
+
  
 }
 

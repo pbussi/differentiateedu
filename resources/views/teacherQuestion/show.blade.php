@@ -123,31 +123,20 @@
                                         <tbody>
                                             @foreach ($question->choices->sortBy('order') as $choice)
                                             <tr>
-                                                 <td style="align-content:center;">{{$choice->order}}</td>
+                                                <td style="align-content:center;">{{$choice->order}}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        
                                                         <div class="col-md-12">
                                                            @if ($choice->audio)
                                                             <figure>
-                               
-                                                             <audio id="player" src="{{url("file/download/{$choice->audio->hash}")}}"></audio>
-
-                                                            <button class="btn " style="float:left; margin-top:10px; margin-right: 5px;" onclick="document.getElementById('player').play()"><i class="fa fa-play-circle"></i></button> 
- 
-
+                                                             <audio id="player_{{$choice->id}}" src="{{url("file/download/{$choice->audio->hash}")}}"></audio>
+                                                             <button class="btn " style="float:left; margin-top:10px; margin-right: 5px;" onclick="document.getElementById('player_{{$choice->id}}').play()"><i class="fa fa-play-circle"></i>
+                                                             </button> 
                                                             @endif
-
-
                                                             </figure>
                                                             <h4 class="m-b-0 font-16"><a href="{{url("teacherChoice/editContent/{$choice->id}")}}">{{$choice->title}}</a></h4>
                                                         </div>
-                                                      {{--
-                                                         <div class="">
-                                                            <h4 class="m-b-0 font-16"><a href="javascript:ventanaSecundaria('{{url("teacherChoice/edit/{$choice->id}")}}')">{{$choice->title}}</a></h4>
-                                                        </div>
-                                                    --}}
-
+                                                  
                                                     </div>
                                                 </td>
                                                

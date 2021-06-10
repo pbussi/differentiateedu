@@ -75,14 +75,27 @@
                                         @csrf
                                         <input type='hidden' name=question_id value={{$question->id}}>
                                         @foreach ($choices->sortBy('order') as $choice)
+
                                             <div class="custom-control custom-radio">
                                                 <div class="p-2"> <input class="form-check-input" type="radio" name="choice_id" value={{$choice->id}}>
                                             </div>
+
                                             <div class="comment-text w-100">
-                                                 <h6 class="font-medium">{{$choice->title}}</h6>
+                                             
+                                                 
+                                                  <h6 class="font-medium">{{$choice->title}}</h6>
                                                     <span class="m-b-15 d-block" style="text-align: justify;">{{$choice->description}} </span>
+                                                       @if ($choice->audio)
+                                                            <figure>
+                                                            <audio controls src="{{url("file/download/{$choice->audio->hash}")}}" >
+                                                            Your browser does not support the
+                                                            <code>audio</code> element.
+                                                            </audio>
+                                                        </figure>
+                                                        @endif
                                             </div>
                                             </div>
+
                                         @endforeach
                                     
                                    
@@ -124,6 +137,14 @@
                                                 <div class="comment-text w-100">
                                                     <h6 class="font-medium"><i class="m-r-10 mdi mdi-check-circle">{{$selectedChoice->title}}</i></h6>
                                                     <span class="m-b-15 d-block" style="text-align: justify;">{{$selectedChoice->description}} </span>
+                                                     @if ($selectedChoice->audio)
+                                                            <figure>
+                                                            <audio controls src="{{url("file/download/{$selectedChoice->audio->hash}")}}" >
+                                                            Your browser does not support the
+                                                            <code>audio</code> element.
+                                                            </audio>
+                                                        </figure>
+                                                        @endif
                                                 </div>
                                             </div>
                                     </div>

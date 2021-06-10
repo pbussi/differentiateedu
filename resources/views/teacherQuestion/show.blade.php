@@ -109,24 +109,25 @@
                     
                     <div class="card-body">
                         <div class="form-group row">
-                            <h4><label class="col-md-12">Choices</label></h4>
-                            <div class="col-md-12">
+                            <h4><label class="col-md-12 col-12">Choices</label></h4>
+                            <div class="col-md-12 col-12">
                                 <div class="table-responsive">
                                     <table class="table v-middle table-hover">
                                         <thead>
                                             <tr class="bg-light">
-                                                <th class="border-top-0">Order #</th>
+                                                <th class="border-top-0" width=5%>Order #</th>
                                                  <th class="border-top-0" width=60%>Choice Title</th>
-                                                <th class="border-top-0" >Actions</th>
+                                                <th class="border-top-0" width="35%">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($question->choices->sortBy('order') as $choice)
                                             <tr>
-                                                <td style="align-content:center;">{{$choice->order}}</td>
+                                                <td style="align-content:center;">{{$choice->order}}
+                                                </td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <div class="col-md-12">
+                                                        <div>
                                                            @if ($choice->audio)
                                                             <figure>
                                                              <audio id="player_{{$choice->id}}" src="{{url("file/download/{$choice->audio->hash}")}}"></audio>
@@ -148,7 +149,7 @@
 
                                                      <a href="{{url("teacherChoice/editContent/{$choice->id}")}}" class="label label-rounded label-primary">Add Content</a>
 
-                                                    <a href="{{url("teacherChoice/delete/{$choice->id}")}}" class="label label-rounded label-danger">Delete</a></td>
+                                                    <a href="{{url("teacherChoice/delete/{$choice->id}")}}"><i class="mdi mdi-delete" style="margin-left:10px; "></i>  </a></td>
                                                     
                                                 </tr>
                                              

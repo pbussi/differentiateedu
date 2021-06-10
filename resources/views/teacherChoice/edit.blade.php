@@ -125,7 +125,7 @@
                 const recEnd = async e => {
                     btn.value = btn.initialValue;
                     audio = await recorder.stop();
-                    audio.play();
+                  //  audio.play();
                     uploadAudio(audio.audioBlob);
                 }
 

@@ -25,7 +25,7 @@ class FileController extends Controller
 		$pivot_file->delete();
 		$file->delete();
 
-		 return redirect()->route('teacherChoice.edit',$choice_id)->with('success','File has been deleted!');
+		 return redirect()->route('teacherChoice.editContent',$choice_id)->with('success','File has been deleted!');
 
 	}
 

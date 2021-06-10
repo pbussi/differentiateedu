@@ -133,8 +133,9 @@
                                                              <audio id="player_{{$choice->id}}" src="{{url("file/download/{$choice->audio->hash}")}}"></audio>
                                                              <button class="btn " style="float:left; margin-top:10px; margin-right: 5px;" onclick="document.getElementById('player_{{$choice->id}}').play()"><i class="fa fa-play-circle"></i>
                                                              </button> 
+                                                             </figure>
                                                             @endif
-                                                            </figure>
+                                                            
                                                             <h4 class="m-b-0 font-16"><a href="{{url("teacherChoice/editContent/{$choice->id}")}}">{{$choice->title}}</a></h4>
                                                         </div>
                                                   
@@ -305,7 +306,7 @@
                 const recEnd = async e => {
                     btn.value = btn.initialValue;
                     audio = await recorder.stop();
-                    audio.play();
+                 //   audio.play();
                     uploadAudio(audio.audioBlob);
                 }
 

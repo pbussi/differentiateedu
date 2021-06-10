@@ -15,11 +15,11 @@ class LinkController extends Controller
 
 		if ($link){
 			$link->delete();
-			return redirect()->route('teacherChoice.edit',$choice_id)->with('success','Content deleted!');
+			return redirect()->route('teacherChoice.editContent',$choice_id)->with('success','Content deleted!');
 		
 		}
 		else
-			return redirect()->route('teacherChoice.edit',$choice_id)->with('error','Cant delete url!');
+			return redirect()->route('teacherChoice.editContent',$choice_id)->with('error','Cant delete url!');
 		 
 	}
 

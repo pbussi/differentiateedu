@@ -95,7 +95,7 @@ class TeacherChoiceController extends Controller
                             'description'=>$request->title]);
     $p->save();
 
-       return redirect()->route('teacherChoice.edit',$id)->with('success','File uploaded!');
+       return redirect()->route('teacherChoice.editContent',$id)->with('success','File uploaded!');
    
 
     }
@@ -106,7 +106,7 @@ class TeacherChoiceController extends Controller
         if ($request->type=='youtube'){
             $pos = strpos($request->url,'youtube.com/watch?v=');
             if ($pos==false)
-                 return redirect()->route('teacherChoice.edit',$id)->with('error','Not a valid Youtube url');
+                 return redirect()->route('teacherChoice.editContent',$id)->with('error','Not a valid Youtube url');
             $code=substr($request->url, $pos+20);
             $link=$code;
         }else{
@@ -117,7 +117,7 @@ class TeacherChoiceController extends Controller
                     $link='http://'.$link;
                 
              }else{
-                return redirect()->route('teacherChoice.edit',$id)->with('error','Invalid entry!');
+                return redirect()->route('teacherChoice.editContent',$id)->with('error','Invalid entry!');
                 }
         }
 
@@ -127,7 +127,7 @@ class TeacherChoiceController extends Controller
                             'choice_id'=>$id]);
          $link->save;
    
-       return redirect()->route('teacherChoice.edit',$id)->with('success','Link added!');
+       return redirect()->route('teacherChoice.editContent',$id)->with('success','Link added!');
    
 
     }

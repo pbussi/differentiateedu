@@ -103,12 +103,18 @@ class TeacherChoiceController extends Controller
 
     public function addLink(Request $request,$id)
     {
+      https://www.youtube.com/watch?v=YMgf9Dg3QRo
         if ($request->type=='youtube'){
             $pos = strpos($request->url,'youtube.com/watch?v=');
-            if ($pos==false)
+            $pos1 = strpos($request->url,'https://youtu.be/');
+
+            if ($pos===false and $pos1===false)
                  return redirect()->route('teacherChoice.editContent',$id)->with('error','Not a valid Youtube url');
-            $code=substr($request->url, $pos+20);
-            $link=$code;
+             if ($pos)
+                 $code=substr($request->url, $pos+20);
+             else
+                 $code=substr($request->url, $pos+17);  
+             $link=$code;
         }else{
 
              if ($request->type=='link'){

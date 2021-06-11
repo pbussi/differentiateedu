@@ -19,14 +19,22 @@ class CourseController extends Controller
 
 public function list()
 {
-	$courses=Auth::user()->teachers[0]->courses->sortByDesc('updated_at');
+	$courses=Auth::user()->teachers[0]->courses->where('archive',0)->sortByDesc('updated_at');
   return view('courses.list',['courses'=>$courses]);
 }
 
-   public function create()
-    {
+public function archivedClasses()
+{
+  $courses=Auth::user()->teachers[0]->courses->where('archive',1)->sortByDesc('updated_at');
+  return view('courses.archivedClasses',['courses'=>$courses]);
+}
+
+
+
+public function create()
+{
     	return view('courses.create_course');
-    }
+}
 
     public function save(Request $request)
     {
@@ -315,6 +323,21 @@ public function clone($course_id){
 }
 
  
+public function archive($course_id){
+  $course=Course::findorFail($course_id);
+  $course->archive=1;
+  $course->save();
+  return redirect()->route('mycourses')->with('success','Class has been archived successfully');
+}
+
+public function active($course_id){
+  $course=Course::findorFail($course_id);
+  $course->archive=0;
+
+  $course->save();
+  return redirect()->route('mycourses')->with('success','Class is restored now');
+}
+
 }
 
 

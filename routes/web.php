@@ -52,6 +52,9 @@ Route::get('teacherQuestion/studentsResults/{question_id}', 'TeacherQuestionCont
 Route::get('mycourses/studentsQuestionResults/{courseid}/{questionid}','CourseController@studentsQuestionResults')->middleware("auth")->name('studentsQuestionResults');
 
 Route::any('teacherQuestion/correct/{answer_id}', 'TeacherQuestionController@correct')->middleware("auth")->name('teacherQuestion.correct');
+Route::any('mycourses/globalCorrection/{question_id}', 'TeacherQuestionController@globalCorrection')->middleware("auth")->name('teacherQuestion.globalCorrection');
+
+
 
 Route::get('teacherChoice/delete/{id}', 'TeacherChoiceController@delete')->middleware("auth");
 Route::post('teacherChoice/add/{id}', 'TeacherChoiceController@add')->middleware("auth");
@@ -96,6 +99,10 @@ Route::get('myactivities/saveDraft/{answer_id}','StudentController@saveDraft')->
 Route::get('myactivities/viewMyWork/{answer_id}','StudentController@viewMyWork')->middleware("auth");
 
 Route::get('link/deleteLink/{id}', 'LinkController@deleteLink')->middleware("auth");
+Route::get('mycourses/archive/{course_id}', 'CourseController@archive')->middleware("auth");
+Route::get('mycourses/archivedClasses', 'CourseController@archivedClasses')->middleware("auth");
+Route::get('mycourses/active/{courseid}', 'CourseController@active')->middleware("auth");
+
 
 
 

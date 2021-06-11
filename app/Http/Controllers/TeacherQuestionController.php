@@ -232,6 +232,38 @@ class TeacherQuestionController extends Controller
         return redirect()->route('studentsResults',$answer->question_id)->with('success','Correction done!');
      }
 
+     public function globalCorrection(Request $request, $question_id){
+
+        $question=Question::find($question_id);
+        $course=Course::find($question->course_id);
+        $answers=Answer::where('question_id',$question_id)->where('completed_at','<>',NULL)->where('review_date',NULL)->get();
+        if ($request->isMethod('GET')){
+           return view('teacherQuestion/globalCorrection',['answers'=>$answers,'question'=>$question]);
+        }
+        if ($request->isMethod('POST')){
+            if (count($answers)==0)
+                 return redirect()->route('studentsResults',$question->id)->with('error','No pending students jobs for correction');
+
+            foreach ($answers as $answer){
+                //para cada estudiante que puso una respuesta y aun no esta corregido, pongo la misma global correction
+                $answer->review_date=date('Y-m-d H:i:s');
+                if (is_numeric($request->mark)){
+                    $answer->mark=$request->mark;
+                }else{
+                    if ($request->mark!=NULL)
+                            return redirect()->route('teacherQuestion.globalCorrection',$answer->id)->with('error','If present, grade must be a number');
+                }
+                $answer->teacher_notes=$request->teacher_notes;
+                $answer->save();        
+            }
+             return redirect()->route('studentsResults',$question->id)->with('success','Global Correction done!');
+
+        }
+
+       
+
+     }
+
      
 
      public function recordAudio(Request $request,$id){

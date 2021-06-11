@@ -53,7 +53,11 @@
 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href={{url("mycourses")}} aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>                            
+                                    class="hide-menu">Dashboard</span></a></li>  
+
+                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href={{url("mycourses/archivedClasses")}} aria-expanded="false"><i class="mdi mdi-archive"></i><span
+                                    class="hide-menu">My archived Classes</span></a></li>                               
                        
                         
 

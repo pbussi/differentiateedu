@@ -134,13 +134,13 @@
 
                             <p class="card-text">{{$course->description_heading}}</p>
                             <p class="card-text">Due date: <i>{{date('m-d-Y', strtotime($course->due_date))}}</i></p>
-                            <p class="card-text"><small class="text-muted">Total Students:</small></p>
+                            <p class="card-text"><small class="text-muted">Total Students: {{count($course->students)}}</small></p>
                             <p class="card-text"><small class="text-muted">Created At:{{$course->created_at}}</small></p>
                         </div>
                           <div class="card-footer" style="text-align: right;">
                                 <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded">Edit </span></a>
                                 <a href="{{url("mycourses/clone/{$course->id}")}}" ><span class="label label-success label-rounded">Clone </span></a>
-                                <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded">Archive </span></a>
+                                <a href="{{url("mycourses/archive/{$course->id}")}}" ><span class="label label-success label-rounded">Archive </span></a>
                                 <a href="{{url("mycourses/delete/{$course->id}")}}" ><span class="label label-warning label-rounded">Delete </span></a>
                             </div>
                     </div>  

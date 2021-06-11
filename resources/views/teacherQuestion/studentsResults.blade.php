@@ -51,13 +51,15 @@
                             <div class="card-body">
                                 <!-- title -->
                                 <div class="d-md-flex">
-                                    <div class="col-10">
+                                    <div class="col-8">
                                         <h4 class="card-title">{{$question->title}}</h4>
                                         <h5 class="card-subtitle">Overview of Students Answers</h5>
                                     </div>
-                                      <div class="col-2">
-                                     <button type="button" class="btn btn-outline-warning" onClick="window.location='{{url("mycourses/studentsQuestionResults/{$course->id}/{$question->id}")}}'">Download Results</button>
-                                    </div>
+                                      <div class="col-4">
+                                        <button type="button" class="btn btn-outline-info" onClick="window.location='{{url("mycourses/globalCorrection/{$question->id}")}}'">Global correction</button>
+                                    
+                                        <button type="button" class="btn btn-outline-warning" onClick="window.location='{{url("mycourses/studentsQuestionResults/{$course->id}/{$question->id}")}}'">Download Results</button>
+                                      </div>
 
                                    
                                 </div>

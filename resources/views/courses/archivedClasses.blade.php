@@ -75,7 +75,7 @@
                             <p class="card-text"><small class="text-muted">Archived At:{{$course->updated_at}}</small></p>
                         </div>
                           <div class="card-footer" style="text-align: right;">
-                                <a href="{{url("mycourses/active/{$course->id}")}}" ><span class="label label-success label-rounded">Active </span></a>
+                                <a href="{{url("mycourses/active/{$course->id}")}}" ><span class="label label-success label-rounded">Restore </span></a>
                               {{--  <a href="{{url("mycourses/delete/{$course->id}")}}" ><span class="label label-warning label-rounded">Delete </span></a>  --}}
                             </div>
                     </div>  

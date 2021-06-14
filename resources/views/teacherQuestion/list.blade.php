@@ -127,9 +127,11 @@
                                              <td>{{$question->created_at->format('m-d-Y')}}</td>
                                              <td>{{date('m-d-Y', strtotime($question->finished_at))}}</td>
                                              <td align="center">@if (date('U', strtotime($question->finished_at))< date("U"))
-                                             		<span class="label label-rounded label-inverse">Closed</span>
+                                             		<span class="label label-rounded label-inverse">Expired</span>
                                                
-                                             	@endif
+                                             	@else
+                                                    <span class="label label-rounded label-success">Active</span>
+                                                @endif
                                              </td>
                                              @php $color="grey"; @endphp
                                              @foreach ($question->answers as $answer)

@@ -86,12 +86,12 @@
                                 <table class="table v-middle">
                                     <thead>
                                         <tr class="bg-light">
-                                            <th class="border-top-0">Question</th>
+                                            <th class="border-top-0" width="40%">Question</th>
                                            
                                             <th class="border-top-0">Created</th>
                                              <th class="border-top-0">Due to</th>
                                              <th class="border-top-0"></th>
-                                             <th class="border-top-0">Your work</th>
+                                             <th class="border-top-0" width="15%">Your work</th>
                                              <th class="border-top-0"></th>
                                           
                                         </tr>
@@ -140,10 +140,9 @@
                                              			@endif
                                              		@else
                                              			@if (date('U', strtotime($question->finished_at))< date("U"))
-                                             					<span class="label label-rounded label-inverse">Closed</span></td><td></td><td></td></tr>
-
+                                             					<span class="label label-rounded label-inverse">Expired</span></td><td></td><td></td></tr>
                                                  		@else
-                                                    			</td><td></td><td></td></tr>
+                                                    			<span class="label label-rounded label-success">Active</span></td><td></td><td></td></tr>
                                              			@endif
                                         
                                                      

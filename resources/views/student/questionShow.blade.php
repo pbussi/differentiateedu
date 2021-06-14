@@ -113,9 +113,9 @@
                        <div class="col-12"> 
                          @if ($question->course->status==0)
 
-                              <h6> QUESTION IS CLOSED. You cannot  continue working. </h6>
+                              <h6> QUESTION IS EXPIRED. You cannot  continue working. </h6>
                          @else
-                             <h6> CLASS IS CLOSED. You cannot  continue working. </h6>
+                             <h6> CLASS IS EXPIRED. You cannot  continue working. </h6>
                          @endif
                         </div>
                   @endif

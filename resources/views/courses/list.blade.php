@@ -42,7 +42,7 @@
                         <div class="d-md-flex">
                             <div>
                                 <h4 class="card-title">Classes</h4>
-                                <h5 class="card-subtitle">List of Teacher Classes</h5>
+                                <h5 class="card-subtitle">List of Active Teacher Classes</h5>
                             </div>
                             <div class="ms-auto">
                                 <div class="dl">
@@ -98,7 +98,7 @@
 
     <div class="container-fluid">
         <!-- ============================================================== -->
-        <!-- Table closed Classes
+        <!-- Table Expired Classes
         <!-- ============================================================== -->
         <div class="row">
             <div class="col-12">
@@ -107,8 +107,8 @@
                         <!-- title -->
                         <div class="d-md-flex">
                             <div>
-                                <h4 class="card-title">Closed Classes</h4>
-                                <h5 class="card-subtitle">List of Teacher Closed Classes</h5>
+                                <h4 class="card-title">Expired Classes</h4>
+                                <h5 class="card-subtitle">List of Teacher expired Classes</h5>
                             </div>
                             <div class="ms-auto">
                                 <div class="dl">

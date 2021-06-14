@@ -92,7 +92,7 @@
 
     <div class="container-fluid">
         <!-- ============================================================== -->
-        <!-- Table closed Classes
+        <!-- Table expired Classes
         <!-- ============================================================== -->
         <div class="row">
             <div class="col-12">
@@ -101,8 +101,8 @@
                         <!-- title -->
                         <div class="d-md-flex">
                             <div>
-                                <h4 class="card-title">Closed Classes</h4>
-                                <h5 class="card-subtitle">My Closed Classes</h5>
+                                <h4 class="card-title">Expired Classes</h4>
+                                <h5 class="card-subtitle">My expired Classes</h5>
                             </div>
                             <div class="ms-auto">
                                 <div class="dl">

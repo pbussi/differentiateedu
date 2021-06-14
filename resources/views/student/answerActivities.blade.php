@@ -155,7 +155,7 @@
             <div class="col-12 col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                    	   <h4 class="card-title"> <img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/my-files.png")}}>My briefcase </h4>
+                    	   <h4 class="card-title"> <img class="rounded-circle" width=50px style="margin-right: 15px;"src={{asset("assets/images/my-files.png")}}>My Backpack </h4>
                     	  
                     	<table class="table no-border mini-table m-t-20">
                     	@foreach ($answer->files as $file)

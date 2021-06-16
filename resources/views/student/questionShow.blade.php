@@ -156,7 +156,7 @@
                                         @if ($answer->completed_at=="")
                                           <button type="button" class="btn btn-outline-warning" onClick="window.location='{{url("answerActivities/{$selectedChoice->id}")}}'">Continue working</button>
                                         @else
-                                        <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("myactivities/viewMyWork/{$selectedChoice->id}")}}'">View your work</button>
+                                        <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("myactivities/viewMyWork/{$selectedChoice->id}")}}'">View my work</button>
                                         @endif
                                      </div>
                                 </div>
@@ -187,7 +187,7 @@
                                         <span class="label label-rounded label-danger"><i class="mdi mdi-emoticon-dead" style="margin-right:5px;"></i><b>TIME IS OVER</b></span>
                                         
                                     @else
-                                         <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("myactivities/viewMyWork/{$selectedChoice->id}")}}'">View your work</button>
+                                         <button type="button" class="btn btn-outline-success" onClick="window.location='{{url("myactivities/viewMyWork/{$selectedChoice->id}")}}'">View my work</button>
                                     @endif
                                 </div>
                             </div>

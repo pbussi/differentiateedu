@@ -108,6 +108,16 @@
 											<div class="col-md-4">
 												<input type="number" name=mark id=mark class="form-control form-control-line">
 											</div>
+											<div class="col-md-4 form-check">
+												 <label class="form-check-label col-md-6" for="fireworks">
+    												Send Fireworks?
+ 												 </label>
+												<input class="form-check-input col-md-2" type="checkbox" name=fireworks id=fireworks class="form-control"  style="margin-top: 0px;">
+											</div>
+											
+ 
+ 
+
 										</div>
 										<div class="form-group row">
 											<label class="col-md-12">Feedback for Student</label>

@@ -123,32 +123,42 @@
     </div>
     <div class="row">
       <!-- column -->
-      <div class="col-12">
+      <div class="col-6" >
         <div class="card">
-          <div class="card-body">
-            <h4 class="card-title"> <img width=50px style="margin-right: 15px;"src={{asset("assets/images/test.png")}}>Teacher Review </h4>
-            <h6 class="card-subtitle">Here you will find teacher notes and marks for your presented work</h6>
-            <div class="form-group row">
-              <div class="col-md-12">
-                <span class="label label-info label-rounded" >Correction date  </span>
-                <h6 class="card-title" style="padding-top:15px; padding-left:50px;">
-                @if ($answer->review_date)
-                {{date('Y-m-d H:i',strtotime($answer->review_date))}}</h6>
-                @else
-                </h6>
-                @endif
-                <span class="label label-info label-rounded">Your mark </span>
-                <h2 class="card-title" style="padding-top:10px;  padding-left:50px;">{{$answer->mark}}</h2>
-                <span class="label label-info  label-rounded">Feedback </span>
-                <h6 class="card-title" style="padding-top:15px; padding-left:50px;">{{$answer->teacher_notes}}</h6>
+            <!-- card -->
+            @if ($answer->fireworks)
+                <canvas id=myCanvas width=600 height="300"></canvas>
+            @endif
+          <div class="card-body" >
+              <!-- card body -->
+              <h4 class="card-title"> <img width=50px style="margin-right: 15px;"src={{asset("assets/images/test.png")}}>Teacher Review </h4>
+              <h6 class="card-subtitle">Here you will find teacher notes and marks for your presented work</h6>
+              <div class="form-group row" >
+
+                    <div class="col-md-12">
+                      <span class="label label-info label-rounded" >Correction date  </span>
+                      <h6 class="card-title" style="padding-top:15px; padding-left:50px;">
+                      @if ($answer->review_date)
+                      {{date('Y-m-d H:i',strtotime($answer->review_date))}}</h6>
+                      @else
+                      </h6>
+                      @endif
+                      <span class="label label-info label-rounded">Your mark </span>
+                      <h2 class="card-title" style="padding-top:10px;  padding-left:50px;">{{$answer->mark}}</h2>
+                      <span class="label label-info  label-rounded">Feedback </span>
+                      <h6 class="card-title" style="padding-top:15px; padding-left:50px;">{{$answer->teacher_notes}}</h6>
+                    </div>
               </div>
-            </div>
+                <!-- end form-group -->
           </div>
-          
+            <!-- end card body -->
         </div>
+          <!-- end card -->
       </div>
+        <!-- end col-6 -->
+
     </div>
-  </div>
+ 
   <!-- Modal -->
   <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -172,3 +182,108 @@
   @endsection
 
 
+@section('internal_scripts')
+
+<script>
+var canvas=document.getElementById('myCanvas');
+   ctx= canvas.getContext('2d');
+   var fireworks=[];
+   var particles=[];
+   var counter = 0;
+
+   function Firework()
+   {
+      this.x = canvas.width/7*(1+3*Math.random());
+      this.y = canvas.height +100;
+      this.angle = Math.random() * Math.PI / 4 - Math.PI / 6;
+      this.xSpeed = Math.sin(this.angle) *(6+Math.random()*7);
+      this.ySpeed = -Math.cos(this.angle) *(6+Math.random()*7);
+      this.hue = Math.floor(Math.random() * 360);
+   }
+   Firework.prototype.draw= function() 
+   {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(Math.atan2(this.ySpeed, this.xSpeed) + Math.PI / 2);
+      ctx.fillStyle =`hsl(${this.hue}, 5%, 5%)`;
+      ctx.fillRect(0, 0, 5, 15);
+      ctx.restore();
+   }
+   Firework.prototype.update= function() 
+   {
+      this.x = this.x + this.xSpeed;
+      this.y = this.y + this.ySpeed;
+      this.ySpeed += 0.1;
+   }
+   Firework.prototype.explode= function() 
+   {
+        for (var i = 0; i < 70; i++) 
+       {
+          particles.push(new Particle(this.x, this.y, this.hue));
+       }
+   }
+
+   function Particle(x,y,hue) 
+   {
+      this.x = x;
+      this.y = y;
+      this.hue = hue;
+      this.lightness = 50;
+      this.size = 15 + Math.random() * 10;
+      this.angle = Math.random() * 2 * Math.PI;
+      this.xSpeed = Math.cos(this.angle) *(1+Math.random() * 6);
+      this.ySpeed = Math.sin(this.angle) *(1+Math.random() * 6);
+   }
+   Particle.prototype.draw= function() 
+   {
+       ctx.fillStyle = `hsl(${this.hue}, 100%, ${this.lightness}%)`;
+       ctx.beginPath();
+       ctx.arc(this.x, this.y, this.size, 0, 2* Math.PI);
+       ctx.closePath();
+       ctx.fill();
+   }
+   Particle.prototype.update= function(index) 
+   {
+       this.ySpeed += 0.05;
+       this.size = this.size*0.95;
+       this.x = this.x + this.xSpeed;
+       this.y = this.y + this.ySpeed;
+       if (this.size<1) 
+       {
+           particles.splice(index,1);
+       }
+   }
+   function loop() 
+   {
+      ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      counter++;
+      if (counter==15) 
+      {
+          fireworks.push(new Firework());
+          counter=0;
+      }
+      var i=fireworks.length;
+      while (i--) 
+      {
+          fireworks[i].draw();
+          fireworks[i].update();
+          if (fireworks[i].ySpeed > 0) 
+          {
+              fireworks[i].explode();
+              fireworks.splice(i, 1);
+          }
+      }
+      var i=particles.length;
+      while (i--) 
+      {      
+          particles[i].draw();
+          particles[i].update(i);
+      }
+      requestAnimationFrame(loop);
+   }
+  loop();
+
+</script>
+
+@endsection

@@ -228,6 +228,9 @@ class TeacherQuestionController extends Controller
         }
 
         $answer->teacher_notes=$request->teacher_notes;
+        if ($request->fireworks=='on')
+            $answer->fireworks=1;
+        
         $answer->save();
         return redirect()->route('studentsResults',$answer->question_id)->with('success','Correction done!');
      }

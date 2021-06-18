@@ -38,6 +38,9 @@ Route::get('/home', function () {
 
     return 'User is logged in';
 });
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
 
 //Route::resource('teacherQuestion', 'TeacherQuestionController');
 Route::get('teacherQuestion/list/{course_id}', 'TeacherQuestionController@list')->name('teacherQuestion.list')->middleware("auth");

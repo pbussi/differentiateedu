@@ -13,7 +13,7 @@ use App\Models\Answer;
 use App\Models\Choice;
 use App\Models\ChoiceFile;
 use App\Models\Link;
-
+include('../vendor/shuchkin/simplexlsxgen/src/SimpleXLSXGen.php');
 class CourseController extends Controller
 {
 
@@ -205,14 +205,16 @@ public function create()
     
 
 public function studentsResults($course_id){
-  header("Content-type: text/csv");
-  header("Content-Disposition: attachment; filename="."results.csv");
-  header("Pragma: no-cache");
-  header("Expires: 0");
-
+  //header("Content-type: text/csv");
+  //header("Content-Disposition: attachment; filename="."results.csv");
+  //header("Pragma: no-cache");
+  //header("Expires: 0");
+echo
   $course=Course::find($course_id);
-  $myarray=array('Student Name','Question','Grade','Teacher Notes','Observations');
-  echo arrayToCsv($myarray);
+  $myarray=array('<b>Student Name</b>','<b>Question</b>','<b>Grade</b>','<b>Teacher Notes</b>','<b>Observations</b>');
+  //echo arrayToCsv($myarray);
+  $matriz=array();
+  $matriz[]=$myarray;
   foreach ($course->students as $student){
     foreach ($course->questions as $question){
         $row=array();
@@ -228,23 +230,30 @@ public function studentsResults($course_id){
           $row['teacherNotes']="";
           $row['observations']="Not presented";
         }
-        echo arrayToCsv($row);
+        $matriz[]=$row;
+        //echo arrayToCsv($row);
     }
   }
+  SimpleXLSXGen::fromArray( $matriz )
+    ->setDefaultFont( 'Courier New' )
+    ->setDefaultFontSize( 10 )
+    ->downloadAs('studentresults.xlsx');
   die();
 }
  
 
  public function studentsQuestionResults($course_id,$question_id){
-  header("Content-type: text/csv");
-  header("Content-Disposition: attachment; filename="."results.csv");
-  header("Pragma: no-cache");
-  header("Expires: 0");
+  //header("Content-type: text/csv");
+  //header("Content-Disposition: attachment; filename="."results.csv");
+  //header("Pragma: no-cache");
+  //header("Expires: 0");
 
   $course=Course::find($course_id);
   $question=Question::find($question_id);
-  $myarray=array('Student Name','Question','Grade','Teacher Notes','Observations');
-  echo arrayToCsv($myarray);
+  $myarray=array('<b>Student Name</b>','<b>Question</b>','<b>Grade</b>','<b>Teacher Notes</b>','<b>Observations</b>');
+  //echo arrayToCsv($myarray);
+  $matriz=array();
+  $matriz[]=$myarray;
   foreach ($course->students as $student){
   
         $row=array();
@@ -260,9 +269,15 @@ public function studentsResults($course_id){
           $row['teacherNotes']="";
           $row['observations']="Not presented";
         }
-        echo arrayToCsv($row);
+        $matriz[]=$row;
+        //echo arrayToCsv($row);
   }
-   die();
+   SimpleXLSXGen::fromArray( $matriz )
+    ->setDefaultFont( 'Courier New' )
+    ->setDefaultFontSize( 10 )
+    ->downloadAs('studentquestions.xlsx');
+  die();
+
   }
 
 

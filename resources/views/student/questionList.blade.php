@@ -142,11 +142,17 @@
                                              			@if (date('U', strtotime($question->finished_at))< date("U"))
                                              					<span class="label label-rounded label-inverse">Expired</span></td><td></td><td></td></tr>
                                                  		@else
-                                                    			<span class="label label-rounded label-success">Active</span></td><td></td><td></td></tr>
-                                             			@endif
+                                                    			
+                                                                @if(date('U',strtotime($question->finished_at."- 3 days"))<date('U'))
+                                                                    <span class="label label-rounded label-warning blink_me">Expire soon!</span></td><td></td><td></td></tr>
+                                                                @else
+                                                                    <span class="label label-rounded label-success">Active</span></td><td></td><td></td></tr>
+
+                                             			        @endif
                                         
                                                      
-                                             		@endif
+                                             		     @endif
+                                                    @endif
                                         		</tr>
                                      @endforeach
                                     </tbody>

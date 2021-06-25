@@ -82,19 +82,26 @@
                                               
                                                  
                                             @if ($item['answer'])
-                                            <span
-                                                class="label label-primary label-rounded">In progress...</span> <span
-                                                class="action-icons">
-                                                <a href="{{route('answerActivities',$item['answer']->choice_id)}}"><i class="ti-pencil-alt"></i></a>
-                                              
-                                            </span>
+                                                <span class="label label-primary label-rounded">In progress...</span> <span
+                                                    class="action-icons">
+                                                    <a href="{{route('answerActivities',$item['answer']->choice_id)}}"><i class="ti-pencil-alt"></i></a></span>
+                                                @if(date('U',strtotime($item['question']->finished_at."- 3 days"))<date('U'))
+                                                                    <span class="label  label-warning blink_me">Expire soon!</span>
+                                                @endif
+                                                   
+                            
+
                                             @else
                                              <span
-                                                class="label label-warning label-rounded">Not Started</span> <span
-                                                class="action-icons">
-                                                <a href="{{route('questionShow',$item['question']->id)}}"><i class="ti-pencil-alt"></i></a>
-                                            
+                                                class="label label-warning label-rounded">Not Started</span> 
                                             </span>
+                                                @if(date('U',strtotime($item['question']->finished_at."- 3 days"))<date('U'))
+                                                                    <span class="label  label-warning blink_me">Expire soon!</span></td><td></td><td></td></tr>
+                                                   
+                                                    @endif
+                                                <span
+                                                class="action-icons"> <a href="{{route('questionShow',$item['question']->id)}}"><i class="ti-pencil-alt"></i></a></span>
+                                                </tr>
                                             @endif
                                     @else
                                      <!-- NO HAY MAS TIEMPO PARA TRABAJAR -->

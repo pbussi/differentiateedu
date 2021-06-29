@@ -7,8 +7,8 @@
                         <!-- User Profile-->
                         <li>
                             <!-- User Profile-->
-                            <div class="user-profile d-flex no-block dropdown m-t-20" style="border-top: solid;border-top-color: gray;">
-                                <div class="user-pic"><img src={{asset("assets/images/users/1.jpg")}} alt="users"
+                            <div class="user-profile d-flex no-block dropdown m-t-20">
+                                <div class="user-pic"><img src={{asset("assets/images/users/1.png")}} alt="users"
                                         class="rounded-circle" width="40" /></div>
                                 <div class="user-content hide-menu m-l-10">
                                     <a href="#" class="" id="Userdd" role="button"

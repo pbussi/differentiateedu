@@ -20,22 +20,23 @@
                     <form class="form-signin" method="post" action="{{route('login')}}">
                          @csrf
                         <div class="form-label-group"> <input type="email" id="inputEmail" name=email class="form-control"  placeholder="Email" required autofocus></div>
-                     
+
                         <div class="form-label-group"> <input type="password" name=password id="inputPassword" class="form-control" placeholder="Password" required>  </div>
 
-                        <div class="custom-control custom-checkbox mb-3"> <input type="checkbox" class="custom-control-input" id="customCheck1"> <label class="custom-control-label" for="customCheck1">Remember password?</label> </div> 
+                        <div class="custom-control custom-checkbox mb-3"> <input type="checkbox" class="custom-control-input" id="customCheck1"> <label class="custom-control-label" for="customCheck1">Remember password?</label> </div>
 
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
                            <span class="small"><a href="{{route('register')}}">New User? Register Now!</a></span><span class="small float-right"><a href="{{url('password/reset')}}">Forgot passowrd?</a></span>
-                      
+
                     </form>
-                      <hr class="my-4"> <button class="btn btn-lg btn-google btn-block text-uppercase" onclick=window.location.href="{{url("login/google")}}"><i class="fab fa-google mr-2"></i> Sign in with Google</button> 
+                      <hr class="my-4"> <button class="btn btn-lg btn-google btn-block text-uppercase" onclick=window.location.href="{{url("login/google")}}"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
                     @if (count($errors)>0)
                         @foreach ($errors->all() as $error)
                             {{$error}}
                         @endforeach
 
                     @endif
+                    <script type="text/javascript" src="https://app.termly.io/embed.min.js" data-auto-block="on" data-website-uuid="59213e57-fe12-42f3-907b-fdc684587a28" ></script>
                 </div>
             </div>
         </div>

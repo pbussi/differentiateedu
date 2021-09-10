@@ -18,12 +18,17 @@ class UserController extends Controller
 	public function profile(Request $request, $id){
         if ($request->isMethod('GET')){
 		      $u=User::find($id);
+
 		      return view('user/profile',['user'=>$u]);
         }
         if ($request->isMethod('POST')){
             Auth::user()->name=$request->username;
             Auth::user()->save();
+            if (Auth::user()->student) {
+                Auth::user()->student->parent_email=$request->parent_email;
+            }
              return view('user/profile',['user'=>Auth::user()]);
+             
         }
 
 	}
@@ -79,7 +84,7 @@ class UserController extends Controller
              'provider'=>'google',
              'provider_id'=>0]);
 
-             //creo el new user como estudiante
+             //creo el new user como teacher
 
              $teacher=Teacher::create([
                 'user_id'=>$newUser->id,

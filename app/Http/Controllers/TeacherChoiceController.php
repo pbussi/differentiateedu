@@ -44,6 +44,7 @@ class TeacherChoiceController extends Controller
 
         $choice=Choice::create([ 'title' => $request->title,
                                   'order'=>strtoupper($request->order),
+                                  'description'=>$request->description,
                                   'question_id'=>$id]);
         $choice->save();
         return redirect()->route('teacherQuestion.show',$id)->with('success','Choice has been created!');

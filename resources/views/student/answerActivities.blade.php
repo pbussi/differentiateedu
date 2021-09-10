@@ -18,33 +18,35 @@
     </div>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="margin-bottom: -40;">
           <div class="col-12">
              <div class="card">
                    <div class="card-body">
-                   
                          <img src={{asset("assets/images/answer.gif")}} width=120px>
-                         <h6>Your Answer:  </h6><h4 class="card-title"><b>{{$myanswerChoice->title}}</b></h4>
-                         <h5 class="card-subtitle" style="text-align: justify;">{{$myanswerChoice->description}}</h5>
-                           
+                         <h6>Your Answer:  </h6><h4 class="card-title"><b>{{strtoupper($myanswerChoice->title)}}</b></h4>
+                        
+                          <div class="form-group row">
+                                <div class="col-md-12">
+                                    Description: <h6>{{$myanswerChoice->description}}</h6>
+                                </div>
+                        </div>
                    </div>
              </div>
           </div>
-          
     </div>
-   
-
-    <div class="row">
+    <div class="row" style="margin-bottom: -30;">
             <!-- column -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                             <h4 class="card-title">Content / Material </h4>
                             <h6 class="card-subtitle">Here you will find all content and activities to do.  Please read, complete and upload your work if it necessary.</h6>
-                         <div class="form-group row">   
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table">
+
+
+                            <div class="form-group row">   
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table">
                                        
                                         <tbody>
                                             @foreach ($myanswerChoice->files as $file)

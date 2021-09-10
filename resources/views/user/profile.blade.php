@@ -113,11 +113,22 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="form-group">
+                                    @if ($user->student)
+                                      <div class="form-group">
+                                        <label class="col-md-12">Your parents mail</label>
+                                        <div class="col-md-12">
+                                            <input type="email"
+                                                class="form-control form-control-line" value={{$user->student->parent_email}} name=parent_email>
+                                        </div> 
+                                     </div>
+                                    @endif
+                                    
+                                        <div class="form-group">
                                         <div class="col-sm-12">
                                             <button class="btn btn-success text-white" type=submit>Update Profile</button>
                                         </div>
                                     </div>
+
                             </form>
                             </div>
                         </div>

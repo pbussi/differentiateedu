@@ -7,8 +7,13 @@
     <div class="page-breadcrumb">
         <div class="row align-items-center">
             <div class="col-12">
-                <h6 class="page-title">Add Content to Choice</h6>
-                <h4 class="page-subtitle">{{$choice->title}}</h4>
+                <h6 class="page-title">Add Content to Choice</h6><br>
+
+
+
+
+
+                <h4 class="page-subtitle">{{strtoupper($choice->title)}}</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -36,9 +41,17 @@
          <div class="row">
             <!-- column -->
             <div class="col-12">
+                @if ($choice->description)
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <h5 class="card-title">Description: </h5><h6>{{$choice->description}}</h6>
+                                </div>
+                            </div>
+                        @endif
                 <div class="card">
-                    
+
                     <div class="card-body">
+                        
 
                         <div class="form-group row">
                             <h4 class="card-title">Content / Material </h4>

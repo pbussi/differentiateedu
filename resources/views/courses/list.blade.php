@@ -100,58 +100,70 @@
         <!-- ============================================================== -->
         <!-- Table Expired Classes
         <!-- ============================================================== -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- title -->
-                        <div class="d-md-flex">
-                            <div>
-                                <h4 class="card-title">Expired Classes</h4>
-                                <h5 class="card-subtitle">List of Teacher expired Classes</h5>
-                            </div>
-                            <div class="ms-auto">
-                                <div class="dl">
-                                    
+
+        @php
+            $encontrado=false;
+            foreach ($courses as $course){
+                if ($course->status=="1")
+                    $encontrado=true;
+            }
+        @endphp
+
+            @if ($encontrado==true)
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- title -->
+                                <div class="d-md-flex">
+                                    <div>
+                                        <h4 class="card-title">Expired Classes</h4>
+                                        <h5 class="card-subtitle">List of Teacher expired Classes</h5>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div class="dl">
+                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>   
+                </div>   
 
-        <div class="row">
-            <div class="col-12">           
-                <div class="card-columns">
-                  @foreach ($courses as $course)
-                    @if ($course->status=="1")
-                      <div class="card"><a href="{{url("teacherQuestion/list/{$course->id}")}}" >
+                <div class="row">
+                    <div class="col-12">           
+                        <div class="card-columns">
+                          @foreach ($courses as $course)
+                            @if ($course->status=="1")
+                              <div class="card"><a href="{{url("teacherQuestion/list/{$course->id}")}}" >
 
-                        <img class="card-img-top" src="{{url("file/download/{$course->picture->hash}")}}"alt="Card image cap" width="297px" height="180px" style="filter:grayscale(100%);">
-                        <div class="card-body">
-                                <h5 class="card-title">{{$course->name}}</h5>
+                                <img class="card-img-top" src="{{url("file/download/{$course->picture->hash}")}}"alt="Card image cap" width="297px" height="180px" style="filter:grayscale(100%);">
+                                <div class="card-body">
+                                        <h5 class="card-title">{{$course->name}}</h5>
 
-                            <p class="card-text">{{$course->description_heading}}</p>
-                            <p class="card-text">Due date: <i>{{date('m-d-Y', strtotime($course->due_date))}}</i></p>
-                            <p class="card-text"><small class="text-muted">Total Students: {{count($course->students)}}</small></p>
-                            <p class="card-text"><small class="text-muted">Created At:{{$course->created_at}}</small></p>
+                                    <p class="card-text">{{$course->description_heading}}</p>
+                                    <p class="card-text">Due date: <i>{{date('m-d-Y', strtotime($course->due_date))}}</i></p>
+                                    <p class="card-text"><small class="text-muted">Total Students: {{count($course->students)}}</small></p>
+                                    <p class="card-text"><small class="text-muted">Created At:{{$course->created_at}}</small></p>
+                                </div>
+                                  <div class="card-footer" style="text-align: right;">
+                                        <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded">Edit </span></a>
+                                        <a href="{{url("mycourses/clone/{$course->id}")}}" ><span class="label label-success label-rounded">Clone </span></a>
+                                        <a href="{{url("mycourses/archive/{$course->id}")}}" ><span class="label label-success label-rounded">Archive </span></a>
+                                        <a href="{{url("mycourses/delete/{$course->id}")}}" ><span class="label label-warning label-rounded">Delete </span></a>
+                                    </div>
+                            </div>  
+                            @endif 
+                          @endforeach
+
                         </div>
-                          <div class="card-footer" style="text-align: right;">
-                                <a href="{{url("mycourses/edit/{$course->id}")}}" ><span class="label label-success label-rounded">Edit </span></a>
-                                <a href="{{url("mycourses/clone/{$course->id}")}}" ><span class="label label-success label-rounded">Clone </span></a>
-                                <a href="{{url("mycourses/archive/{$course->id}")}}" ><span class="label label-success label-rounded">Archive </span></a>
-                                <a href="{{url("mycourses/delete/{$course->id}")}}" ><span class="label label-warning label-rounded">Delete </span></a>
-                            </div>
-                    </div>  
-                    @endif 
-                  @endforeach
+                    </a>
 
+                    </div>
                 </div>
-            </a>
+            @endif
 
-            </div>
-        </div>
         <!-- ============================================================== -->
         <!-- Table -->
         <!-- ============================================================== -->

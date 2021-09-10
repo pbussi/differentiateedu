@@ -18,8 +18,14 @@ class StudentController extends Controller
 {
   	public function list()
 	{
-  		$courses=Auth::user()->students[0]->courses->where('archive',0)->sortBy('created_at');
-  		return view('student.dashboard',['courses'=>$courses]);
+    if (Auth::user()->student){
+  		  $courses=Auth::user()->students[0]->courses->where('archive',0)->sortBy('created_at');
+  		  return view('student.dashboard',['courses'=>$courses]);
+    }else
+      {
+            return redirect()->route('mycourses');
+
+      }
 	}
 
 

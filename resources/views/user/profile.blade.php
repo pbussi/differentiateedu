@@ -36,6 +36,7 @@
                 <!-- ============================================================== -->
                 <!-- Row -->
                 <div class="row">
+
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
@@ -90,6 +91,14 @@
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
                             <div class="card-body">
+                                 @if (count($errors)>0)
+                    
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li class="text-danger">{{$error}}</label></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             <form method="post" action="">
                                 @csrf
                                     <div class="form-group">
@@ -102,14 +111,20 @@
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" class="form-control form-control-line" value={{$user->email}} id="email" readonly>
+                                            <input type="email" class="form-control form-control-line" value={{$user->email}} id="email">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password" value="password"
-                                                class="form-control form-control-line" readonly>
+                                   
+                                    <div class="form-group">                             
+                                        <label class="col-md-5">Change Password</label>
+                                        <div class="col-md-5">
+                                            <input type="password" name=password
+                                                class="form-control form-control-line" value="" autocomplete="new-password">
+                                        </div>
+                                        <label class="col-md-5">Confirm Pasword</label>
+                                        <div class="col-md-5">
+                                            <input type="password" name=password_confirmation 
+                                                class="form-control form-control-line" >
                                         </div>
                                     </div>
                                    
@@ -118,7 +133,7 @@
                                         <label class="col-md-12">Your parents mail</label>
                                         <div class="col-md-12">
                                             <input type="email"
-                                                class="form-control form-control-line" value={{$user->student->parent_email}} name=parent_email>
+                                                class="form-control form-control-line" name=parent_email value={{$user->student->parent_email}} >
                                         </div> 
                                      </div>
                                     @endif

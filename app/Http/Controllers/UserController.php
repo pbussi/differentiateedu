@@ -9,7 +9,7 @@ use Auth;
 use App\Models\Teacher;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -22,12 +22,17 @@ class UserController extends Controller
 		      return view('user/profile',['user'=>$u]);
         }
         if ($request->isMethod('POST')){
+            if ($request->password){
+                        $request->validate(['password' => 'required|confirmed|min:8']);
+                        Auth::user()->password=Hash::make($request->password);
+            }
             Auth::user()->name=$request->username;
             Auth::user()->save();
             if (Auth::user()->student) {
                 Auth::user()->student->parent_email=$request->parent_email;
             }
-             return view('user/profile',['user'=>Auth::user()]);
+            return redirect()->route('userProfile',Auth::user())->with('success','Your profile has been updated!');
+            // return view('user/profile',['user'=>Auth::user()]);
              
         }
 
